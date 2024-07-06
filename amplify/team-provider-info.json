@@ -16,13 +16,14 @@
         "firstbotAnthropicRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
           "s3Key": "amplify-builds/firstbotAnthropicRuntime-7a597734787764397177-build.zip",
-          "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/"
+          "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://iqex76tnu3nvhjuxjb2cx2azxq0fppxo.lambda-url.us-east-1.on.aws/"
         },
         "firstbotStreamioAction": {
           "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
           "streamIoApiKey": "zy37g37xbvd4",
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
-          "s3Key": "amplify-builds/firstbotStreamioAction-4d6d7249746a7459304e-build.zip"
+          "s3Key": "amplify-builds/firstbotStreamioAction-64504b6c6e3958386337-build.zip"
         },
         "firstbotStreamioWebhook": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",

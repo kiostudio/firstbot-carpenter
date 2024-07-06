@@ -97,6 +97,14 @@
         }
       ]
     },
+    "AMPLIFY_function_firstbotAnthropicRuntime_firstbotPythonRuntime": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotAnthropicRuntime"
+        }
+      ]
+    },
     "AMPLIFY_function_firstbotAnthropicRuntime_s3Key": {
       "usedBy": [
         {

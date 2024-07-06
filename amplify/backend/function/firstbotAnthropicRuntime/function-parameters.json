@@ -12,6 +12,10 @@
     {
       "cloudFormationParameterName": "firstbotNodejsRuntime",
       "environmentVariableName": "FIRSTBOT_NODEJS_RUNTIME"
+    },
+    {
+      "cloudFormationParameterName": "firstbotPythonRuntime",
+      "environmentVariableName": "FIRSTBOT_PYTHON_RUNTIME"
     }
   ]
 }

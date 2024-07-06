@@ -30,6 +30,9 @@
     },
     "firstbotNodejsRuntime": {
       "Type": "String"
+    },
+    "firstbotPythonRuntime": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -96,6 +99,9 @@
             },
             "FIRSTBOT_NODEJS_RUNTIME": {
               "Ref": "firstbotNodejsRuntime"
+            },
+            "FIRSTBOT_PYTHON_RUNTIME": {
+              "Ref": "firstbotPythonRuntime"
             }
           }
         },
