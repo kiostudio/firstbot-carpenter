@@ -7,5 +7,11 @@
         "Mutation"
       ]
     }
-  }
+  },
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "firstbotNodejsRuntime",
+      "environmentVariableName": "FIRSTBOT_NODEJS_RUNTIME"
+    }
+  ]
 }

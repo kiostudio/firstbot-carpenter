@@ -45,22 +45,23 @@ export default function Home({ params }) {
     if(!anthropicApiKey) return;
     const triggerAnthropicRuntime = async (messageData) => {
       const anthropicRuntime = await apiClient.graphql({ query: firstbotAnthropicRuntime, variables: { params: JSON.stringify({ messageData, anthropicApiKey , profileId }) } });
-      console.log('Anthropic Runtime : ',anthropicRuntime);
+    };
+    const variables = {
+      filter: {
+        profileId: { eq: profileId }
+      }
     };
     const loggingSubscription = apiClient.graphql({
       query: onCreateLogging,
-      filter: {
-        profileId: { eq: profileId },
-        type: { eq: 'clientSideAPIRequest' }
-      }
+      variables
     }).subscribe({
       next: (eventData) => {
-        console.log('Event Data : ',eventData);
+        // console.log('Event Data : ',eventData);
         let { data } = eventData.data.onCreateLogging;
         const messageData = (typeof data === 'string') ? JSON.parse(data) : data;
-        console.log(eventData.data.onCreateLogging.profileId, profileId);
+        // console.log(eventData.data.onCreateLogging.profileId, profileId);
         if(eventData.data.onCreateLogging.profileId !== profileId) return;
-        console.log('Logging Data : ',messageData, anthropicApiKey);
+        // console.log('Logging Data : ',messageData, anthropicApiKey);
         triggerAnthropicRuntime(messageData);
       },
       error: (error) => {
