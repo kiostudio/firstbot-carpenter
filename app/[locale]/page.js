@@ -16,6 +16,7 @@ import ChatInterface from "@/components/chat/chatInterface";
 import Loader from "@/components/loader";
 import { onCreateLogging } from '@/src/graphql/subscriptions';
 import { firstbotAnthropicRuntime } from '@/src/graphql/queries';
+import DarkLogo from "@/public/logo_dark.png";
 
 Amplify.configure({
   aws_project_region: "us-east-1",
@@ -58,7 +59,7 @@ export default function Home({ params }) {
         let { data } = eventData.data.onCreateLogging;
         const messageData = (typeof data === 'string') ? JSON.parse(data) : data;
         console.log('Logging Data : ',messageData, anthropicApiKey);
-        // triggerAnthropicRuntime(messageData);
+        triggerAnthropicRuntime(messageData);
       },
       error: (error) => {
         console.log('Error : ',error);
@@ -73,7 +74,7 @@ export default function Home({ params }) {
             <div className='w-auto flex flex-row items-center justify-between gap-3'>
                 <Link href={'/'}>
                     <Button className="flex items-center gap-3" variant='ghost'>
-                        <Image src={`/logo_dark.png`} width={18} height={18} alt="logo" />
+                        <Image src={DarkLogo} width={18} height={18} alt="logo" className='hidden dark:block'/>
                         <div className='hidden lg:flex text-sm font-mono text-black dark:text-white'>{localeString['brand'][locale]}</div>
                     </Button>
                 </Link>
