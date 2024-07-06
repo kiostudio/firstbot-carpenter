@@ -17,6 +17,8 @@ import Loader from "@/components/loader";
 import { onCreateLogging } from '@/src/graphql/subscriptions';
 import { firstbotAnthropicRuntime } from '@/src/graphql/queries';
 import DarkLogo from "@/public/logo_dark.png";
+import RunTimeList from "@/components/runtime/runTimeList";
+import CopyRight from "@/components/copyRight";
 
 Amplify.configure({
   aws_project_region: "us-east-1",
@@ -34,6 +36,7 @@ export default function Home({ params }) {
   const [chatToken,setChatToken] = useState(null);
   const [profileId,setProfileId] = useState(null);
   const [anthropicApiKey, setAnthropicApiKey] = useState('');
+  const [runTimeResults, setRunTimeResults] = useState([]);
   useEffect(() => {
     if(localStorage.getItem('stremioToken')) setChatToken(localStorage.getItem('stremioToken'));
     if(localStorage.getItem('profileId')) setProfileId(localStorage.getItem('profileId'));
@@ -56,12 +59,24 @@ export default function Home({ params }) {
       variables
     }).subscribe({
       next: (eventData) => {
-        console.log('Event Data : ',eventData);
-        let { data, type } = eventData.data.onCreateLogging;
+        // console.log('Event Data : ',eventData);
+        let { data, type, createdAt, updatedAt } = eventData.data.onCreateLogging;
         const messageData = (typeof data === 'string') ? JSON.parse(data) : data;
         // console.log(eventData.data.onCreateLogging.profileId, profileId);
         if(eventData.data.onCreateLogging.profileId !== profileId) return;
+        // console.log('Message Data : ',messageData);
         if(type === "clientSideAPIRequest") triggerAnthropicRuntime(messageData);
+        if(type === "exeRuntime") {
+          // console.log('Message Data : ',messageData);
+          setRunTimeResults((prevRunTimeResults) => {
+            return [{
+              id: eventData.data.onCreateLogging.id,
+              createdAt: createdAt,
+              updatedAt: updatedAt,
+              ...messageData
+            }, ...prevRunTimeResults];
+          });
+        }
       },
       error: (error) => {
         console.log('Error : ',error);
@@ -71,24 +86,25 @@ export default function Home({ params }) {
   return (
     <main className={'w-full h-[100dvh] flex flex-col items-center justify-center overflow-auto'}>
       <div className='w-full flex flex-row items-start justify-start h-full'>
-        <div className='w-full flex flex-col items-center justify-center p-5'>
-          <div className='w-full flex flex-row items-center justify-between h-fit'>
-            <div className='w-auto flex flex-row items-center justify-between gap-3'>
-                <Link href={'/'}>
-                    <Button className="flex items-center gap-3" variant='ghost'>
-                        <Image src={DarkLogo} width={18} height={18} alt="logo" className='hidden dark:block'/>
-                        <div className='hidden lg:flex text-sm font-mono text-black dark:text-white'>{localeString['brand'][locale]}</div>
-                    </Button>
-                </Link>
+        <div className='w-full flex flex-col items-center justify-start p-5 h-full gap-5'>
+          <div className='w-full flex flex-col items-center justify-start h-full overflow-auto gap-3'>
+            <div className='w-full flex flex-row items-center justify-between h-fit'>
+                <div className='w-auto flex flex-row items-center justify-between'>
+                    <Link href={'/'}>
+                        <Button className="flex items-center gap-3" variant='ghost'>
+                            <Image src={DarkLogo} width={18} height={18} alt="logo" className='hidden dark:block'/>
+                            <div className='hidden lg:flex text-sm font-mono text-black dark:text-white'>{localeString['brand'][locale]}</div>
+                        </Button>
+                    </Link>
+                </div>
+                <div className={`relative w-auto flex flex-row items-center justify-between gap-2`}>
+                  <LanguageMenu locale={locale} />
+                  <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey}/>
+                </div>
             </div>
-            <div className={`relative w-auto flex flex-row items-center justify-between gap-2`}>
-              <LanguageMenu locale={locale} />
-              <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey}/>
-            </div>
+            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} />
           </div>
-          <div className='w-full grid grid-cols-2 gap-2'>
-
-          </div>
+          <CopyRight />
         </div>
         <div className='w-full flex flex-col items-center justify-center h-full bg-slate-50 dark:bg-black'>
             {
