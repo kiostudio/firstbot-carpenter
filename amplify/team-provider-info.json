@@ -22,7 +22,7 @@
           "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
           "streamIoApiKey": "zy37g37xbvd4",
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
-          "s3Key": "amplify-builds/firstbotStreamioAction-787038415a513353412b-build.zip"
+          "s3Key": "amplify-builds/firstbotStreamioAction-59525365627769614773-build.zip"
         },
         "firstbotStreamioWebhook": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",

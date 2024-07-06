@@ -179,13 +179,12 @@ exports.handler = async (event) => {
         else if(action === "typingIndicator") {
             const channel = serverClient.channel('messaging', channelId);
             await channel.create();
-            console.log(loadingState);
             await channel.sendEvent({
                 type: (loadingState === true) ? 'typing.start' : 'typing.stop',
-                user_id: `servant-${servantId}`
+                user_id: servantId
             });
+            response = "Success";
         }
-        console.log(response);
         return (event.arguments) ? JSON.stringify({
             statusCode: 200,
             body: response

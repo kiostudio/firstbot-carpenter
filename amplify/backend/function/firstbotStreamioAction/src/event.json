@@ -1,5 +1,40 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "typeName": "Query",
+  "fieldName": "firstbotStreamioAction",
+  "arguments": {
+      "params": "{\"action\":\"typingIndicator\",\"channelId\":\"702be32b-carpenter-702be32b\",\"servantId\":\"carpenter-702be32b\",\"loadingState\":true}"
+  },
+  "identity": null,
+  "source": null,
+  "request": {
+      "headers": {
+          "x-amzn-appsync-is-vpce-request": "false",
+          "x-forwarded-for": "3.236.207.71, 70.132.32.134",
+          "accept-encoding": "gzip,deflate",
+          "cloudfront-is-tablet-viewer": "false",
+          "cloudfront-viewer-country": "US",
+          "x-amzn-requestid": "757e78e0-0e0b-4a8f-ad8c-b4c622fa8a7e",
+          "x-amzn-remote-ip": "3.236.207.71",
+          "via": "1.1 f8558580f66929e19ed69bba2e85da74.cloudfront.net (CloudFront)",
+          "x-api-key": "da2-bkzu5upcpbavdm3mquyqnx4ufa",
+          "cloudfront-forwarded-proto": "https",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-amzn-trace-id": "Root=1-66895718-00681b060a7e66e540cc6233",
+          "x-amz-cf-id": "8BdqWd8BFeZXQKZvglMr-3nSz7wzjj-A0rgNGXzv05JFYs1X0Ewozg==",
+          "content-length": "278",
+          "x-forwarded-proto": "https",
+          "host": "xbyuhfqosrf7jp7hlb46ynsovi.appsync-api.us-east-1.amazonaws.com",
+          "user-agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)",
+          "cloudfront-is-desktop-viewer": "true",
+          "accept": "*/*",
+          "cloudfront-is-mobile-viewer": "false",
+          "x-forwarded-port": "443",
+          "cloudfront-is-smarttv-viewer": "false",
+          "cloudfront-viewer-asn": "14618"
+      },
+      "domainName": null
+  },
+  "prev": {
+      "result": {}
+  }
 }
