@@ -15,7 +15,17 @@
       "function": {
         "firstbotAnthropicRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
-          "s3Key": "amplify-builds/firstbotAnthropicRuntime-48585036616c4b507978-build.zip"
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-2f476e2b473368687071-build.zip"
+        },
+        "firstbotStreamioAction": {
+          "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
+          "streamIoApiKey": "zy37g37xbvd4",
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioAction-7241746d6e672b786a51-build.zip"
+        },
+        "firstbotStreamioWebhook": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioWebhook-39786d31722f43347749-build.zip"
         }
       },
       "api": {

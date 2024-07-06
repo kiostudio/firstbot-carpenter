@@ -34,3 +34,42 @@ export const onDeleteProfile = /* GraphQL */ `
     }
   }
 `;
+export const onCreateLogging = /* GraphQL */ `
+  subscription OnCreateLogging($filter: ModelSubscriptionLoggingFilterInput) {
+    onCreateLogging(filter: $filter) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;
+export const onUpdateLogging = /* GraphQL */ `
+  subscription OnUpdateLogging($filter: ModelSubscriptionLoggingFilterInput) {
+    onUpdateLogging(filter: $filter) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;
+export const onDeleteLogging = /* GraphQL */ `
+  subscription OnDeleteLogging($filter: ModelSubscriptionLoggingFilterInput) {
+    onDeleteLogging(filter: $filter) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;

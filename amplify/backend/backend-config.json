@@ -22,6 +22,49 @@
   "function": {
     "firstbotAnthropicRuntime": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "firstbotcarpenter"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "firstbotStreamioAction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "firstbotcarpenter"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "firstbotStreamioWebhook": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "firstbotcarpenter"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -40,6 +83,54 @@
         {
           "category": "function",
           "resourceName": "firstbotAnthropicRuntime"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotStreamioAction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotStreamioAction"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotStreamioAction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotStreamioAction"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotStreamioAction_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotStreamioAction"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotStreamioAction_streamIoApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotStreamioAction"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotStreamioWebhook_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotStreamioWebhook"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotStreamioWebhook_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotStreamioWebhook"
         }
       ]
     }

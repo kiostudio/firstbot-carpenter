@@ -1,0 +1,20 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "streamIoApiKey",
+      "environmentVariableName": "STREAM_IO_API_KEY"
+    }
+  ],
+  "secretNames": [
+    "STREAM_IO_SECRET_KEY"
+  ],
+  "permissions": {
+    "api": {
+      "firstbotcarpenter": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  }
+}

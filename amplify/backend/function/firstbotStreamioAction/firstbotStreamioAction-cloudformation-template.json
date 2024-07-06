@@ -16,6 +16,9 @@
     "s3Key": {
       "Type": "String"
     },
+    "secretsPathAmplifyAppId": {
+      "Type": "String"
+    },
     "apifirstbotcarpenterGraphQLAPIIdOutput": {
       "Type": "String",
       "Default": "apifirstbotcarpenterGraphQLAPIIdOutput"
@@ -27,6 +30,9 @@
     "apifirstbotcarpenterGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apifirstbotcarpenterGraphQLAPIKeyOutput"
+    },
+    "streamIoApiKey": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -59,12 +65,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "firstbotAnthropicRuntime",
+            "firstbotStreamioAction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "firstbotAnthropicRuntime",
+                  "firstbotStreamioAction",
                   "-",
                   {
                     "Ref": "env"
@@ -82,6 +88,28 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
+            "STREAM_IO_SECRET_KEY": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Sub": [
+                      "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
+                      {
+                        "appId": {
+                          "Ref": "secretsPathAmplifyAppId"
+                        },
+                        "env": {
+                          "Ref": "env"
+                        },
+                        "functionName": "firstbotStreamioAction"
+                      }
+                    ]
+                  },
+                  "STREAM_IO_SECRET_KEY"
+                ]
+              ]
+            },
             "API_FIRSTBOTCARPENTER_GRAPHQLAPIIDOUTPUT": {
               "Ref": "apifirstbotcarpenterGraphQLAPIIdOutput"
             },
@@ -90,6 +118,9 @@
             },
             "API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apifirstbotcarpenterGraphQLAPIKeyOutput"
+            },
+            "STREAM_IO_API_KEY": {
+              "Ref": "streamIoApiKey"
             }
           }
         },
@@ -110,12 +141,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "firstbotcarpenterLambdaRolec71d1b98",
+            "firstbotcarpenterLambdaRoleb0fffcaf",
             {
               "Fn::Join": [
                 "",
                 [
-                  "firstbotcarpenterLambdaRolec71d1b98",
+                  "firstbotcarpenterLambdaRoleb0fffcaf",
                   "-",
                   {
                     "Ref": "env"
@@ -185,6 +216,63 @@
           ]
         }
       }
+    },
+    "AmplifyFunctionSecretsPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-function-secrets-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ssm:GetParameter",
+                "ssm:GetParameters"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter",
+                    {
+                      "Fn::Sub": [
+                        "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
+                        {
+                          "appId": {
+                            "Ref": "secretsPathAmplifyAppId"
+                          },
+                          "env": {
+                            "Ref": "env"
+                          },
+                          "functionName": "firstbotStreamioAction"
+                        }
+                      ]
+                    },
+                    "*"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ]
     },
     "AmplifyResourcesPolicy": {
       "DependsOn": [

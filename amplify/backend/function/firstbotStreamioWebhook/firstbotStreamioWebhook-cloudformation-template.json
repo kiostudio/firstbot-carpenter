@@ -59,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "firstbotAnthropicRuntime",
+            "firstbotStreamioWebhook",
             {
               "Fn::Join": [
                 "",
                 [
-                  "firstbotAnthropicRuntime",
+                  "firstbotStreamioWebhook",
                   "-",
                   {
                     "Ref": "env"
@@ -110,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "firstbotcarpenterLambdaRolec71d1b98",
+            "firstbotcarpenterLambdaRolef11ae403",
             {
               "Fn::Join": [
                 "",
                 [
-                  "firstbotcarpenterLambdaRolec71d1b98",
+                  "firstbotcarpenterLambdaRolef11ae403",
                   "-",
                   {
                     "Ref": "env"

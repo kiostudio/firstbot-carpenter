@@ -43,3 +43,51 @@ export const deleteProfile = /* GraphQL */ `
     }
   }
 `;
+export const createLogging = /* GraphQL */ `
+  mutation CreateLogging(
+    $input: CreateLoggingInput!
+    $condition: ModelLoggingConditionInput
+  ) {
+    createLogging(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;
+export const updateLogging = /* GraphQL */ `
+  mutation UpdateLogging(
+    $input: UpdateLoggingInput!
+    $condition: ModelLoggingConditionInput
+  ) {
+    updateLogging(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;
+export const deleteLogging = /* GraphQL */ `
+  mutation DeleteLogging(
+    $input: DeleteLoggingInput!
+    $condition: ModelLoggingConditionInput
+  ) {
+    deleteLogging(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;

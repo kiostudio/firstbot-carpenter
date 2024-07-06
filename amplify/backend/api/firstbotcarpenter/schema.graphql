@@ -8,3 +8,17 @@ type Profile @model {
   updatedAt: AWSDateTime!
   data: AWSJSON
 }
+
+type Logging @model{
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  profileId: ID! @index(name: "getLoggingByProfileId", sortKeyFields:["createdAt"], queryField: "getLoggingByProfileId")
+  type: String
+  data: AWSJSON
+}
+
+type Query {
+  firstbotStreamioAction(params: String): String @function(name: "firstbotStreamioAction-${env}")
+  firstbotAnthropicRuntime(params: String): String @function(name: "firstbotAnthropicRuntime-${env}")
+}
