@@ -10,6 +10,17 @@
       "StackName": "amplify-firstbotcarpenter-dev-112641",
       "StackId": "arn:aws:cloudformation:us-east-1:441658902828:stack/amplify-firstbotcarpenter-dev-112641/9263de30-3b47-11ef-a788-12a471e35253",
       "AmplifyAppId": "d2rizq9ecqhouq"
+    },
+    "categories": {
+      "function": {
+        "firstbotAnthropicRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-48585036616c4b507978-build.zip"
+        }
+      },
+      "api": {
+        "firstbotcarpenter": {}
+      }
     }
   }
 }
