@@ -1,9 +1,9 @@
 /* Amplify Params - DO NOT EDIT
-	API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT
-	API_FIRSTBOTCARPENTER_GRAPHQLAPIIDOUTPUT
-	API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT
-	ENV
-	REGION
+    API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT
+    API_FIRSTBOTCARPENTER_GRAPHQLAPIIDOUTPUT
+    API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT
+    ENV
+    REGION
 Amplify Params - DO NOT EDIT *//*
 Use the following code to retrieve configured secrets from SSM:
 
@@ -68,14 +68,14 @@ const { v4: uuidv4 } = require('uuid');
 //   }
 // `;
 
-const apiCallRequest = async function (variables,graphQuery,graphQueryName,graphqlEndpoint,graphqlApiKey) {
+const apiCallRequest = async function (variables, graphQuery, graphQueryName, graphqlEndpoint, graphqlApiKey) {
     try {
         const options = {
-        method: 'POST',
-        headers: {
-            'x-api-key': graphqlApiKey
-        },
-        body: JSON.stringify({ query:graphQuery, variables:variables })
+            method: 'POST',
+            headers: {
+                'x-api-key': graphqlApiKey
+            },
+            body: JSON.stringify({ query: graphQuery, variables: variables })
         };
         const request = new fetch.Request(graphqlEndpoint, options);
         // console.log('request: ',request);
@@ -83,12 +83,12 @@ const apiCallRequest = async function (variables,graphQuery,graphQueryName,graph
         body = await response.json();
         // console.log('body: ',body.data);
         if (body.errors) {
-            console.log(`Error Happens in ${graphQueryName}:`,body.errors);
+            console.log(`Error Happens in ${graphQueryName}:`, body.errors);
             return body.errors;
         }
         return body.data[graphQueryName];
     } catch (error) {
-        console.log(`Error Happens in ${graphQueryName}:`,error);
+        console.log(`Error Happens in ${graphQueryName}:`, error);
         return error;
     }
 }
@@ -103,25 +103,25 @@ exports.handler = async (event) => {
         let params;
         console.log(event.arguments, typeof event.arguments);
         console.log(event.body, typeof event.body);
-        if(event.arguments) params = JSON.parse(event.arguments.params);
+        if (event.arguments) params = JSON.parse(event.arguments.params);
         else params = JSON.parse(event.body);
         console.log(params);
         // const { params } = event.arguments;
         const { profileId, servantId, channelId, action, message, loadingState } = params;
         // Get Secrect Key
         const { Parameters } = await (new aws.SSM())
-        .getParameters({
-            Names: ["STREAM_IO_SECRET_KEY"].map(secretName => process.env[secretName]),
-            WithDecryption: true,
-        })
-        .promise();
+            .getParameters({
+                Names: ["STREAM_IO_SECRET_KEY"].map(secretName => process.env[secretName]),
+                WithDecryption: true,
+            })
+            .promise();
         let secrets = {};
-        Parameters.map((secret)=>secrets[secret['Name']] = secret['Value']);
+        Parameters.map((secret) => secrets[secret['Name']] = secret['Value']);
         // Set up Stream Chat Client
         const serverClient = StreamChat.getInstance(process.env.STREAM_IO_API_KEY, secrets[process.env.STREAM_IO_SECRET_KEY]);
         // console.log(process.env.STREAM_IO_API_KEY, secrets[process.env.STREAM_IO_SECRET_KEY]);
         let response;
-        if(action === "generateToken"){
+        if (action === "generateToken") {
             response = serverClient.createToken(`user-${profileId}`);
             let carpenter = {
                 id: `carpenter-${profileId.split('-')[0]}`,
@@ -140,7 +140,7 @@ exports.handler = async (event) => {
             // const updateProfileRes = 
             // await apiCallRequest({ input: { id: profileId, data: JSON.stringify(profile.data) } }, updateProfile, "updateProfile", process.env.API_INFINITYENGINE_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_INFINITYENGINE_GRAPHQLAPIKEYOUTPUT);
             // console.log(updateProfileRes);
-        } else if(action === "upsertUser") {
+        } else if (action === "upsertUser") {
             // Get Servant by servantId
             // let servant = await apiCallRequest({ id: servantId }, getServant, "getServant", process.env.API_INFINITYENGINE_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_INFINITYENGINE_GRAPHQLAPIKEYOUTPUT);
             // console.log(servant.title, servantId);
@@ -167,23 +167,24 @@ exports.handler = async (event) => {
         //     console.log(channels);
         //     response = channels[0].data.name;
         // }
-        else if(action === "sendMessage") {
+        else if (action === "sendMessage") {
             const channel = serverClient.channel('messaging', channelId);
             // console.log(message);
             await channel.create();
             response = await channel.sendMessage(message);
-        } 
-        else if(action === "updateMessage") {
-            response = serverClient.updateMessage(message);
-        } 
-        else if(action === "typingIndicator") {
-            const channel = serverClient.channel('messaging', channelId);
-            // await channel.create();
-            console.log(loadingState);
-            if(loadingState === true) await channel.keystroke();
-            if(loadingState === false) await channel.stopTyping();
         }
-        console.log(response);
+        else if (action === "updateMessage") {
+            response = serverClient.updateMessage(message);
+        }
+        else if (action === "typingIndicator") {
+            const channel = serverClient.channel('messaging', channelId);
+            await channel.create();
+            await channel.sendEvent({
+                type: (loadingState === true) ? 'typing.start' : 'typing.stop',
+                user_id: servantId
+            });
+            response = "Success";
+        }
         return (event.arguments) ? JSON.stringify({
             statusCode: 200,
             body: response
