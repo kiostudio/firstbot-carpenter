@@ -58,6 +58,8 @@ export default function Home({ params }) {
         console.log('Event Data : ',eventData);
         let { data } = eventData.data.onCreateLogging;
         const messageData = (typeof data === 'string') ? JSON.parse(data) : data;
+        console.log(eventData.data.onCreateLogging.profileId, profileId);
+        if(eventData.data.onCreateLogging.profileId !== profileId) return;
         console.log('Logging Data : ',messageData, anthropicApiKey);
         triggerAnthropicRuntime(messageData);
       },
