@@ -21,6 +21,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "firstbotPythonRuntime": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "firstbotStreamioAction": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
