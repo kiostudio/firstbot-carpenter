@@ -38,7 +38,7 @@ exports.handler = async (event) => {
         console.log(`execRes: ${JSON.stringify(execRes)}`);
         return {
             statusCode: 200,
-            body: JSON.stringify({ execRes : execRes })
+            body: typeof execRes === 'string' ? { execRes : execRes } : JSON.stringify({ execRes })
         };
     } catch (error) {
         console.log(`ERROR:`,error);

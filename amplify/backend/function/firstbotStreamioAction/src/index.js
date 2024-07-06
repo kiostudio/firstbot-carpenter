@@ -179,7 +179,8 @@ exports.handler = async (event) => {
         else if(action === "typingIndicator") {
             const channel = serverClient.channel('messaging', channelId);
             await channel.create();
-            const response = await channel.sendEvent({
+            console.log(loadingState);
+            await channel.sendEvent({
                 type: (loadingState === true) ? 'typing.start' : 'typing.stop',
                 user_id: `servant-${servantId}`
             });

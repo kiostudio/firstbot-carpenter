@@ -7,6 +7,22 @@
 Amplify Params - DO NOT EDIT */
 const fetch = require('node-fetch');
 
+const createLogging = /* GraphQL */ `
+  mutation CreateLogging(
+    $input: CreateLoggingInput!
+    $condition: ModelLoggingConditionInput
+  ) {
+    createLogging(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      profileId
+      type
+      data
+      __typename
+    }
+  }
+`;
 
 const firstbotStreamioAction = /* GraphQL */ `
   query FirstbotStreamioAction($params: String) {
@@ -121,6 +137,25 @@ exports.handler = async (event) => {
               // throw error;
             }
         };
+ 
+        // Streamio Pending Message 
+        const streamIoPendingMessage = async(channelId,profileId,loadingState) => {
+            try {
+              // console.log(`Send loading message : channelId: ${channelId}, servantId: ${servantId}`,loadingState);
+              const loadingMessageRes = await apiCallRequest({
+                params: JSON.stringify({
+                  action: 'typingIndicator',
+                  channelId: channelId,
+                  servantId:   `carpenter-${profileId.split('-')[0]}`,
+                  loadingState: loadingState
+              })},firstbotStreamioAction,"firstbotStreamioAction",process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT,process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+              // console.log(`loadingMessageRes: ${JSON.stringify(loadingMessageRes)}`);
+            } catch (error) {
+              console.log(`Error Happens in streamIoPendingMessage:`,error);
+              throw new Error(error);
+            }
+          }
+          
 
         // Anthropic Runtime Function
         const anthropicRuntimeFunc = async (messages,anthropicApiKey,profileId) => {
@@ -129,8 +164,8 @@ exports.handler = async (event) => {
                 'model': `claude-3-sonnet-20240229`,
                 'max_tokens': 4096,
                 'messages': messages,
-                'system': ` I am Carpenter, a skilled NodeJS developer specialized in writing, testing, and deploying NodeJS or Python scripts on AWS Lambda.
-                    Hello! I'm Carpenter, your expert in writing, testing, and deploying NodeJS scripts tailored for AWS Lambda. My integration with AWS services ensures your applications are robust and scalable.
+                'system': ` I am Carpenter, a skilled NodeJS / Python developer specialized in writing, testing, and deploying NodeJS / Python scripts on AWS Lambda.
+                    Hello! I'm Carpenter, your expert in writing, testing, and deploying NodeJS / Python scripts tailored for AWS Lambda. My integration with AWS services ensures your applications are robust and scalable.
                     **Instructions for Users:**
                     - When you provide tasks or specific scripting requirements, please ensure details are clear. If any instructions are ambiguous, I’ll seek clarification to ensure your needs are exactly met.
                     - If your task involves continuous script running and testing, feel free to provide detailed expectations or ask for my assistance in setting up proper testing protocols.
@@ -156,7 +191,7 @@ exports.handler = async (event) => {
                                 },
                                 "dependencies":{
                                     "type": "string",
-                                    "description": "A stringify JSON object include all the dependencies required to run the function and the latest version correspondingly. It should look like the dependencies property in a package.json file. Don't include any default NodeJS module.",
+                                    "description": "A stringify JSON object include all the dependencies required to run the function and the latest version correspondingly. It should look like the dependencies property in a package.json file. Don't include any default NodeJS / Python module.",
                                 },
                                 "testArgu":{
                                     "type": "string",
@@ -190,8 +225,18 @@ exports.handler = async (event) => {
                     content: jsonAnthropicResponse.content
                 });
                 toolInput = toolInput[0];
+                await streamIoPendingMessage(messageData.body.channel_id,profileId,true);
                 const arguExecRes = await arguExecRun(toolInput.input,runtTimeEndpoint[toolInput.name]);
                 console.log('Argument Execution Result : ',arguExecRes);
+                const createRuntimeLogging = { 
+                    input: { 
+                        profileId: profileId,
+                        type: 'exeRuntime', 
+                        data: JSON.stringify(arguExecRes)
+                    } 
+                };
+                const createRuntimeLoggingRes = await apiCallRequest(createRuntimeLogging,createLogging,'createLogging',process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT,process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                console.log(createRuntimeLoggingRes);
                 execRes = arguExecRes;
                 messages.push({
                     role: 'user',
@@ -208,10 +253,11 @@ exports.handler = async (event) => {
 
         let messages = [];
         if(textMessage) messages.push({ role: 'user', content: textMessage });
+        await streamIoPendingMessage(messageData.body.channel_id,profileId,true);
         const aiResponse = await anthropicRuntimeFunc(messages,anthropicApiKey,profileId);
         console.log('AI Response : ',aiResponse);
+        await streamIoPendingMessage(messageData.body.channel_id,profileId,false);
         await sendMessageToStreamio(aiResponse,messageData.body.channel_id,profileId,'sendMessage',null);
-    
         return {
             statusCode: 200,
             body: JSON.stringify('Anthropic Processed')

@@ -56,13 +56,12 @@ export default function Home({ params }) {
       variables
     }).subscribe({
       next: (eventData) => {
-        // console.log('Event Data : ',eventData);
-        let { data } = eventData.data.onCreateLogging;
+        console.log('Event Data : ',eventData);
+        let { data, type } = eventData.data.onCreateLogging;
         const messageData = (typeof data === 'string') ? JSON.parse(data) : data;
         // console.log(eventData.data.onCreateLogging.profileId, profileId);
         if(eventData.data.onCreateLogging.profileId !== profileId) return;
-        // console.log('Logging Data : ',messageData, anthropicApiKey);
-        triggerAnthropicRuntime(messageData);
+        if(type === "clientSideAPIRequest") triggerAnthropicRuntime(messageData);
       },
       error: (error) => {
         console.log('Error : ',error);
@@ -86,6 +85,9 @@ export default function Home({ params }) {
               <LanguageMenu locale={locale} />
               <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey}/>
             </div>
+          </div>
+          <div className='w-full grid grid-cols-2 gap-2'>
+
           </div>
         </div>
         <div className='w-full flex flex-col items-center justify-center h-full bg-slate-50 dark:bg-black'>
