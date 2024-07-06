@@ -1,9 +1,9 @@
 /* Amplify Params - DO NOT EDIT
-	API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT
-	API_FIRSTBOTCARPENTER_GRAPHQLAPIIDOUTPUT
-	API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT
-	ENV
-	REGION
+    API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT
+    API_FIRSTBOTCARPENTER_GRAPHQLAPIIDOUTPUT
+    API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT
+    ENV
+    REGION
 Amplify Params - DO NOT EDIT */
 const fetch = require('node-fetch');
 
@@ -30,14 +30,14 @@ const firstbotStreamioAction = /* GraphQL */ `
   }
 `;
 
-const apiCallRequest = async function (variables,graphQuery,graphQueryName,graphqlEndpoint,graphqlApiKey) {
+const apiCallRequest = async function (variables, graphQuery, graphQueryName, graphqlEndpoint, graphqlApiKey) {
     try {
         const options = {
             method: 'POST',
             headers: {
                 'x-api-key': graphqlApiKey
             },
-            body: JSON.stringify({ query:graphQuery, variables:variables })
+            body: JSON.stringify({ query: graphQuery, variables: variables })
         };
         const request = new fetch.Request(graphqlEndpoint, options);
         // console.log('request: ',request);
@@ -45,12 +45,12 @@ const apiCallRequest = async function (variables,graphQuery,graphQueryName,graph
         body = await response.json();
         // console.log('body: ',body.data);
         if (body.errors) {
-            console.log(`Error Happens in ${graphQueryName}:`,body.errors);
+            console.log(`Error Happens in ${graphQueryName}:`, body.errors);
             return body.errors;
         }
         return body.data[graphQueryName];
     } catch (error) {
-        console.log(`Error Happens in ${graphQueryName}:`,error);
+        console.log(`Error Happens in ${graphQueryName}:`, error);
         return error;
     }
 }
@@ -63,7 +63,7 @@ exports.handler = async (event) => {
     let isArguments = false;
     let variables;
     try {
-        if(event.arguments){
+        if (event.arguments) {
             let { params } = event.arguments;
             variables = JSON.parse(params);
             isArguments = true;
@@ -71,20 +71,20 @@ exports.handler = async (event) => {
             const { body } = event;
             variables = JSON.parse(body);
         }
-        let { messageData, anthropicApiKey , profileId } = variables;
-        if(typeof messageData === 'string') messageData = JSON.parse(messageData);
+        let { messageData, anthropicApiKey, profileId } = variables;
+        if (typeof messageData === 'string') messageData = JSON.parse(messageData);
         // console.log(`messageData:`,messageData, typeof messageData);
-        if(typeof messageData.body === 'string') messageData.body = JSON.parse(messageData.body);
+        if (typeof messageData.body === 'string') messageData.body = JSON.parse(messageData.body);
         const textMessage = messageData.body.message.text;
-        console.log(`textMessage:`,textMessage);
+        console.log(`textMessage:`, textMessage);
 
         // Execute the function with the arguments
-        const arguExecRun = async (functionArgu,endPointUrl) => {
+        const arguExecRun = async (functionArgu, endPointUrl) => {
             let response;
             // let logType = 'info';
             try {
-                if(typeof functionArgu === 'string') functionArgu = JSON.parse(functionArgu);
-                const scriptRunRes = await fetch(endPointUrl,{
+                if (typeof functionArgu === 'string') functionArgu = JSON.parse(functionArgu);
+                const scriptRunRes = await fetch(endPointUrl, {
                     method: 'post',
                     body: JSON.stringify({
                         script: `const fetch = require('node-fetch');
@@ -100,66 +100,67 @@ exports.handler = async (event) => {
                         dependencies: `{"node-fetch": "2"}`,
                         testArgu: JSON.stringify({ ...functionArgu })
                     }),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: { 'Content-Type': 'application/json' }
                 });
                 response = await scriptRunRes.json();
                 console.log(`Script Run Response: ${JSON.stringify(response)}`);
                 return response;
             } catch (error) {
-              console.log(`Function Executor Error`,error);
-              response = { execRes: { error: error } };
-              logType = 'error';
-              return { execRes: { error: error } };
+                console.log(`Function Executor Error`, error);
+                response = { execRes: { error: error } };
+                logType = 'error';
+                return { execRes: { error: error } };
             } finally {
-            //   await createTaskLogging(typesenseClient,servant,servant.id,{ message : `tool execution result : ${JSON.stringify(response)}` },logType,executor.jobId);
+                //   await createTaskLogging(typesenseClient,servant,servant.id,{ message : `tool execution result : ${JSON.stringify(response)}` },logType,executor.jobId);
             }
         };
-        
+
         // Send message to Streamio
-        const sendMessageToStreamio = async (aiResponse,channelId,profileId,action,messageId) => {
+        const sendMessageToStreamio = async (aiResponse, channelId, profileId, action, messageId) => {
             try {
-              let messageParam = {
-                action: action,
-                channelId: channelId,
-                message: {
-                  text: aiResponse,
-                  user_id: `carpenter-${profileId.split('-')[0]}`
-                }
-              };
-              if(messageId) messageParam.message.id = messageId;
-              console.log(`messageParam: ${JSON.stringify(messageParam)}`);
-              console.log(`firstbotStreamioAction`,firstbotStreamioAction);
-              const sendMessageToStreamioRes = await apiCallRequest({ params: JSON.stringify(messageParam)},firstbotStreamioAction,'firstbotStreamioAction',process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT,process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
-              console.log(`sendMessageToStreamioRes: ${JSON.stringify(sendMessageToStreamioRes)}`,typeof sendMessageToStreamioRes);
-              return (sendMessageToStreamioRes) ? JSON.parse(sendMessageToStreamioRes) : null;
+                let messageParam = {
+                    action: action,
+                    channelId: channelId,
+                    message: {
+                        text: aiResponse,
+                        user_id: `carpenter-${profileId.split('-')[0]}`
+                    }
+                };
+                if (messageId) messageParam.message.id = messageId;
+                console.log(`messageParam: ${JSON.stringify(messageParam)}`);
+                console.log(`firstbotStreamioAction`, firstbotStreamioAction);
+                const sendMessageToStreamioRes = await apiCallRequest({ params: JSON.stringify(messageParam) }, firstbotStreamioAction, 'firstbotStreamioAction', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                console.log(`sendMessageToStreamioRes: ${JSON.stringify(sendMessageToStreamioRes)}`, typeof sendMessageToStreamioRes);
+                return (sendMessageToStreamioRes) ? JSON.parse(sendMessageToStreamioRes) : null;
             } catch (error) {
-              console.log('Error Happens in sendMessageToStreamio:',error);
-              // throw error;
+                console.log('Error Happens in sendMessageToStreamio:', error);
+                // throw error;
             }
         };
- 
+
         // Streamio Pending Message 
-        const streamIoPendingMessage = async(channelId,profileId,loadingState) => {
+        const streamIoPendingMessage = async (channelId, profileId, loadingState) => {
             try {
-              // console.log(`Send loading message : channelId: ${channelId}, servantId: ${servantId}`,loadingState);
-              const loadingMessageRes = await apiCallRequest({
-                params: JSON.stringify({
-                  action: 'typingIndicator',
-                  channelId: channelId,
-                  servantId:   `carpenter-${profileId.split('-')[0]}`,
-                  loadingState: loadingState
-              })},firstbotStreamioAction,"firstbotStreamioAction",process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT,process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
-              // console.log(`loadingMessageRes: ${JSON.stringify(loadingMessageRes)}`);
+                // console.log(`Send loading message : channelId: ${channelId}, servantId: ${servantId}`,loadingState);
+                const loadingMessageRes = await apiCallRequest({
+                    params: JSON.stringify({
+                        action: 'typingIndicator',
+                        channelId: channelId,
+                        servantId: `carpenter-${profileId.split('-')[0]}`,
+                        loadingState: loadingState
+                    })
+                }, firstbotStreamioAction, "firstbotStreamioAction", process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                // console.log(`loadingMessageRes: ${JSON.stringify(loadingMessageRes)}`);
             } catch (error) {
-              console.log(`Error Happens in streamIoPendingMessage:`,error);
-              throw new Error(error);
+                console.log(`Error Happens in streamIoPendingMessage:`, error);
+                throw new Error(error);
             }
-          }
-          
+        }
+
 
         // Anthropic Runtime Function
-        const anthropicRuntimeFunc = async (messages,anthropicApiKey,profileId) => {
-            console.log('Anthropic Runtime Function',messages,profileId);
+        const anthropicRuntimeFunc = async (messages, anthropicApiKey, profileId) => {
+            console.log('Anthropic Runtime Function', messages, profileId);
             let params = {
                 'model': `claude-3-sonnet-20240229`,
                 'max_tokens': 4096,
@@ -189,11 +190,32 @@ exports.handler = async (event) => {
                                     "type": "string",
                                     "description": "A piece of code snippet including the main function named as exeFunc that can run in a NodeJS environemnt with eval() function. The exeFunc function must be defined in the code.",
                                 },
-                                "dependencies":{
+                                "dependencies": {
                                     "type": "string",
                                     "description": "A stringify JSON object include all the dependencies required to run the function and the latest version correspondingly. It should look like the dependencies property in a package.json file. Don't include any default NodeJS / Python module.",
                                 },
-                                "testArgu":{
+                                "testArgu": {
+                                    "type": "string",
+                                    "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
+                                }
+                            }
+                        }
+                    },
+                    {
+                        'name': 'python_runtime',
+                        'description': 'This is the script of the running and testing environment : ',
+                        'input_schema': {
+                            'type': 'object',
+                            'properties': {
+                                "script": {
+                                    "type": "string",
+                                    "description": "A piece of code snippet including the main function named as exeFunc that can run in a Python3 environemnt with exec() function. The exeFunc function must be defined in the code.",
+                                },
+                                "dependencies": {
+                                    "type": "string",
+                                    "description": "A list of python packages include all the dependencies required to run the function and the latest version correspondingly. It should look like the content in a requirement.txt file. Don't include any default NodeJS / Python module.",
+                                },
+                                "run_params": {
                                     "type": "string",
                                     "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
                                 }
@@ -203,7 +225,8 @@ exports.handler = async (event) => {
                 ]
             };
             const runtTimeEndpoint = {
-                'nodejs_runtime': process.env.FIRSTBOT_NODEJS_RUNTIME
+                'nodejs_runtime': process.env.FIRSTBOT_NODEJS_RUNTIME,
+                'python_runtime': process.env.FIRSTBOT_PYTHON_RUNTIME,
             };
             const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
@@ -217,25 +240,25 @@ exports.handler = async (event) => {
                 body: JSON.stringify(params)
             });
             const jsonAnthropicResponse = await anthropicResponse.json();
-            console.log('Anthropic Response : ',jsonAnthropicResponse);
+            console.log('Anthropic Response : ', jsonAnthropicResponse);
             let toolInput = jsonAnthropicResponse.content.filter(item => item.type === 'tool_use');
-            if(toolInput.length > 0){
+            if (toolInput.length > 0) {
                 messages.push({
                     role: 'assistant',
                     content: jsonAnthropicResponse.content
                 });
                 toolInput = toolInput[0];
-                await streamIoPendingMessage(messageData.body.channel_id,profileId,true);
-                const arguExecRes = await arguExecRun(toolInput.input,runtTimeEndpoint[toolInput.name]);
-                console.log('Argument Execution Result : ',arguExecRes);
-                const createRuntimeLogging = { 
-                    input: { 
+                await streamIoPendingMessage(messageData.body.channel_id, profileId, true);
+                const arguExecRes = await arguExecRun(toolInput.input, runtTimeEndpoint[toolInput.name]);
+                console.log('Argument Execution Result : ', arguExecRes);
+                const createRuntimeLogging = {
+                    input: {
                         profileId: profileId,
-                        type: 'exeRuntime', 
+                        type: 'exeRuntime',
                         data: JSON.stringify(arguExecRes)
-                    } 
+                    }
                 };
-                const createRuntimeLoggingRes = await apiCallRequest(createRuntimeLogging,createLogging,'createLogging',process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT,process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                const createRuntimeLoggingRes = await apiCallRequest(createRuntimeLogging, createLogging, 'createLogging', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
                 console.log(createRuntimeLoggingRes);
                 execRes = arguExecRes;
                 messages.push({
@@ -246,27 +269,27 @@ exports.handler = async (event) => {
                         content: (typeof execRes === 'string') ? execRes : JSON.stringify(execRes)
                     }]
                 });
-                return await anthropicRuntimeFunc(messages,anthropicApiKey,profileId);
+                return await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
             };
             return jsonAnthropicResponse.content[0].text;;
         }
 
         let messages = [];
-        if(textMessage) messages.push({ role: 'user', content: textMessage });
-        await streamIoPendingMessage(messageData.body.channel_id,profileId,true);
-        const aiResponse = await anthropicRuntimeFunc(messages,anthropicApiKey,profileId);
-        console.log('AI Response : ',aiResponse);
-        await streamIoPendingMessage(messageData.body.channel_id,profileId,false);
-        await sendMessageToStreamio(aiResponse,messageData.body.channel_id,profileId,'sendMessage',null);
+        if (textMessage) messages.push({ role: 'user', content: textMessage });
+        await streamIoPendingMessage(messageData.body.channel_id, profileId, true);
+        const aiResponse = await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
+        console.log('AI Response : ', aiResponse);
+        await streamIoPendingMessage(messageData.body.channel_id, profileId, false);
+        await sendMessageToStreamio(aiResponse, messageData.body.channel_id, profileId, 'sendMessage', null);
         return {
             statusCode: 200,
             body: JSON.stringify('Anthropic Processed')
-        };   
+        };
     } catch (error) {
-        console.log(`Error Happens in Webhook Process:`,error);
+        console.log(`Error Happens in Webhook Process:`, error);
         return {
             statusCode: 500,
             body: JSON.stringify(`Error Happens in Process: ${error}`)
-        };        
+        };
     }
 };

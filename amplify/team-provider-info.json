@@ -15,7 +15,7 @@
       "function": {
         "firstbotAnthropicRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
-          "s3Key": "amplify-builds/firstbotAnthropicRuntime-786959424a374b714a51-build.zip",
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-7a597734787764397177-build.zip",
           "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/"
         },
         "firstbotStreamioAction": {
@@ -31,6 +31,10 @@
         "firstbotNodeJsRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
           "s3Key": "amplify-builds/firstbotNodeJsRuntime-665a466b6c7748745753-build.zip"
+        },
+        "firstbotPythonRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotPythonRuntime-49556b68453768487338-build.zip"
         }
       },
       "api": {

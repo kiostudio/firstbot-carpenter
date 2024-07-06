@@ -41,6 +41,12 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "firstbotPythonRuntime": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "firstbotStreamioAction": {
       "build": true,
       "dependsOn": [
@@ -112,6 +118,22 @@
         {
           "category": "function",
           "resourceName": "firstbotNodeJsRuntime"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotPythonRuntime_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotPythonRuntime"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotPythonRuntime_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotPythonRuntime"
         }
       ]
     },
