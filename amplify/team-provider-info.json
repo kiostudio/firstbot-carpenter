@@ -36,7 +36,53 @@
         "firstbotPythonRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
           "s3Key": "amplify-builds/firstbotPythonRuntime-49556b68453768487338-build.zip"
-        }
+        },
+        "firstbotcarpenter": {}
+      },
+      "api": {
+        "firstbotcarpenter": {}
+      }
+    }
+  },
+  "johndev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-firstbotcarpenter-johndev-124704-authRole",
+      "UnauthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-johndev-124704-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-johndev-124704-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-firstbotcarpenter-johndev-124704-deployment",
+      "UnauthRoleName": "amplify-firstbotcarpenter-johndev-124704-unauthRole",
+      "StackName": "amplify-firstbotcarpenter-johndev-124704",
+      "StackId": "arn:aws:cloudformation:us-east-1:441658902828:stack/amplify-firstbotcarpenter-johndev-124704/21fbc460-3ce5-11ef-86d0-0eaf1d091d01",
+      "AmplifyAppId": "d2rizq9ecqhouq"
+    },
+    "categories": {
+      "function": {
+        "firstbotAnthropicRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-johndev-124704-deployment",
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-7a597734787764397177-build.zip",
+          "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://iqex76tnu3nvhjuxjb2cx2azxq0fppxo.lambda-url.us-east-1.on.aws/"
+        },
+        "firstbotNodeJsRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-johndev-124704-deployment",
+          "s3Key": "amplify-builds/firstbotNodeJsRuntime-665a466b6c7748745753-build.zip"
+        },
+        "firstbotPythonRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-johndev-124704-deployment",
+          "s3Key": "amplify-builds/firstbotPythonRuntime-49556b68453768487338-build.zip"
+        },
+        "firstbotStreamioAction": {
+          "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
+          "streamIoApiKey": "zy37g37xbvd4",
+          "deploymentBucketName": "amplify-firstbotcarpenter-johndev-124704-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioAction-36416d626f57524a3656-build.zip"
+        },
+        "firstbotStreamioWebhook": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-johndev-124704-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioWebhook-39786d31722f43347749-build.zip"
+        },
+        "firstbotcarpenter": {}
       },
       "api": {
         "firstbotcarpenter": {}
