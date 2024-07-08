@@ -15,9 +15,9 @@
       "function": {
         "firstbotAnthropicRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
-          "s3Key": "amplify-builds/firstbotAnthropicRuntime-7a597734787764397177-build.zip",
-          "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/",
-          "firstbotPythonRuntime": "https://iqex76tnu3nvhjuxjb2cx2azxq0fppxo.lambda-url.us-east-1.on.aws/"
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-6331342f594a4b542b4a-build.zip",
+          "firstbotNodejsRuntime": "https://2mrzbycdmxt7rie6gpmofrf5340dgidj.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://l3gp4aeju2m7jmrezytn3wep4u0jxtaj.lambda-url.us-east-1.on.aws/"
         },
         "firstbotNodeJsRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
@@ -29,14 +29,17 @@
         },
         "firstbotStreamioAction": {
           "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
-          "streamIoApiKey": "zy37g37xbvd4",
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
-          "s3Key": "amplify-builds/firstbotStreamioAction-36416d626f57524a3656-build.zip"
+          "s3Key": "amplify-builds/firstbotStreamioAction-436b435066475a4d3555-build.zip",
+          "streamIoApiKey": "rqtx3rd88akn"
         },
         "firstbotStreamioWebhook": {
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
           "s3Key": "amplify-builds/firstbotStreamioWebhook-39786d31722f43347749-build.zip"
         },
+        "firstbotcarpenter": {}
+      },
+      "api": {
         "firstbotcarpenter": {}
       }
     }

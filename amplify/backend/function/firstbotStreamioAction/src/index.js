@@ -23,51 +23,6 @@ const aws = require('aws-sdk');
 const fetch = require('node-fetch');
 const { v4: uuidv4 } = require('uuid');
 
-// const getServant = /* GraphQL */ `
-//   query GetServant($id: ID!) {
-//     getServant(id: $id) {
-//       id
-//       title
-//       config
-//     }
-//   }
-// `;
-
-// const getTemplate = /* GraphQL */ `
-//   query GetTemplate($id: ID!) {
-//     getTemplate(id: $id) {
-//       id
-//       createdAt
-//       metadata
-//     }
-//   }
-// `;
-
-// const getProfile = /* GraphQL */ `
-//   query GetProfile($id: ID!) {
-//     getProfile(id: $id) {
-//       id
-//       createdAt
-//       updatedAt
-//       data
-//     }
-//   }
-// `;
-
-// const updateProfile = /* GraphQL */ `
-//   mutation UpdateProfile(
-//     $input: UpdateProfileInput!
-//     $condition: ModelProfileConditionInput
-//   ) {
-//     updateProfile(input: $input, condition: $condition) {
-//       id
-//       createdAt
-//       updatedAt
-//       data
-//     }
-//   }
-// `;
-
 const apiCallRequest = async function (variables, graphQuery, graphQueryName, graphqlEndpoint, graphqlApiKey) {
     try {
         const options = {
