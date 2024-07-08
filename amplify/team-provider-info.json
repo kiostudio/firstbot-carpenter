@@ -1,4 +1,49 @@
 {
+  "bendev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-firstbotcarpenter-bendev-111458-authRole",
+      "UnauthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-bendev-111458-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-bendev-111458-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+      "UnauthRoleName": "amplify-firstbotcarpenter-bendev-111458-unauthRole",
+      "StackName": "amplify-firstbotcarpenter-bendev-111458",
+      "StackId": "arn:aws:cloudformation:us-east-1:441658902828:stack/amplify-firstbotcarpenter-bendev-111458/446ea880-3cd8-11ef-b2bd-12098a4ce817",
+      "AmplifyAppId": "d2rizq9ecqhouq"
+    },
+    "categories": {
+      "function": {
+        "firstbotAnthropicRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-6331342f594a4b542b4a-build.zip",
+          "firstbotNodejsRuntime": "https://2mrzbycdmxt7rie6gpmofrf5340dgidj.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://l3gp4aeju2m7jmrezytn3wep4u0jxtaj.lambda-url.us-east-1.on.aws/"
+        },
+        "firstbotNodeJsRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+          "s3Key": "amplify-builds/firstbotNodeJsRuntime-665a466b6c7748745753-build.zip"
+        },
+        "firstbotPythonRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+          "s3Key": "amplify-builds/firstbotPythonRuntime-49556b68453768487338-build.zip"
+        },
+        "firstbotStreamioAction": {
+          "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
+          "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioAction-436b435066475a4d3555-build.zip",
+          "streamIoApiKey": "rqtx3rd88akn"
+        },
+        "firstbotStreamioWebhook": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioWebhook-39786d31722f43347749-build.zip"
+        },
+        "firstbotcarpenter": {}
+      },
+      "api": {
+        "firstbotcarpenter": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-firstbotcarpenter-dev-112641-authRole",

@@ -113,7 +113,11 @@
         },
         "Runtime": "nodejs18.x",
         "Layers": [],
-        "Timeout": 25
+        "Timeout": 900,
+        "MemorySize": 1024,
+        "EphemeralStorage": {
+          "Size": 512
+        }
       }
     },
     "LambdaExecutionRole": {

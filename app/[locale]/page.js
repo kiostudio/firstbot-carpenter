@@ -87,7 +87,7 @@ export default function Home({ params }) {
     <main className={'w-full h-[100dvh] flex flex-col items-center justify-center overflow-auto'}>
       <div className='w-full flex flex-row items-start justify-start h-full'>
         <div className='w-full flex flex-col items-center justify-start p-5 h-full gap-5'>
-          <div className='w-full flex flex-col items-center justify-start h-full overflow-auto gap-3'>
+          <div className='w-full flex flex-col items-center justify-start h-full gap-3'>
             <div className='w-full flex flex-row items-center justify-between h-fit'>
               <div className='w-auto flex flex-row items-center justify-between'>
                 <Link href={'/'}>

@@ -83,23 +83,24 @@ exports.handler = async (event) => {
             let response;
             // let logType = 'info';
             try {
-                if (typeof functionArgu === 'string') functionArgu = JSON.parse(functionArgu);
+                // if (typeof functionArgu === 'string') functionArgu = JSON.parse(functionArgu);
                 const scriptRunRes = await fetch(endPointUrl, {
                     method: 'post',
-                    body: JSON.stringify({
-                        script: `const fetch = require('node-fetch');
-                            async function exeFunc(params){
-                            const response = await fetch('https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/',{
-                                method: 'post',
-                                body: JSON.stringify(params),
-                                headers: {'Content-Type': 'application/json'}
-                            });
-                            const body = await response.json();
-                            return body;
-                        }`,
-                        dependencies: `{"node-fetch": "2"}`,
-                        testArgu: JSON.stringify({ ...functionArgu })
-                    }),
+                    // body: JSON.stringify({
+                        // script: `const fetch = require('node-fetch');
+                        //     async function exeFunc(params){
+                        //     const response = await fetch('https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/',{
+                        //         method: 'post',
+                        //         body: JSON.stringify(params),
+                        //         headers: {'Content-Type': 'application/json'}
+                        //     });
+                        //     const body = await response.json();
+                        //     return body;
+                        // }`,
+                        // dependencies: `{"node-fetch": "2"}`,
+                        // testArgu: JSON.stringify({ ...functionArgu })
+                    // }),
+                    body: typeof functionArgu === 'string' ? functionArgu : JSON.stringify(functionArgu),
                     headers: { 'Content-Type': 'application/json' }
                 });
                 response = await scriptRunRes.json();
@@ -170,14 +171,44 @@ exports.handler = async (event) => {
                     **Instructions for Users:**
                     - When you provide tasks or specific scripting requirements, please ensure details are clear. If any instructions are ambiguous, I’ll seek clarification to ensure your needs are exactly met.
                     - If your task involves continuous script running and testing, feel free to provide detailed expectations or ask for my assistance in setting up proper testing protocols.
-                    - Make sure the main calling an async function is called exeFunc in the script. This function should be defined in the code snippet you provide.
-                    - For example : async function exeFunc(params){ return params; }
-
-                    **Testing Protocols:**
-                    - During script testing, there is no need for manual trigger of the execution function ('exeFunc'). The test environment is designed to automatically trigger this function when test parameters are provided, simplifying the process and ensuring consistency in script execution.
-                    
-                    **Interaction Guidelines:**
                     - For any function or plugin utilization, explicit instructions on input values are essential. Avoid assumptions and communicate clearly to ensure the functionality meets the task requirements precisely.
+
+                    ** Scripting : exeFunc**
+                    - Make sure the main calling an async function is called exeFunc in the script. This function should be defined in the code snippet you provide.
+                    - For example : async function exeFunc(params){ 
+                        const { input1, input2 } = params;
+                        // Your code here
+                        return 'Your output';
+                    }
+                    - The input parameters for the exeFunc function should be passed as a JSON object, so please destruct the object in the function in order to use it.
+
+                    ** Dependencies: dependencies**
+                    - Please include all the dependencies required to run the function and the latest version correspondingly. It should look like the dependencies property in a package.json file. Don't include any default NodeJS / Python module.
+
+                    **Testing Protocols: testArgu**
+                    - During script testing, there is no need for manual trigger of the execution function ('exeFunc'). The test environment is designed to automatically trigger this function when test parameters are provided, simplifying the process and ensuring consistency in script execution.
+                    - the testArgu parameter should be a JSON object that acts as the arguments to test the exeFunc function. It will be passed to the exeFunc and executed. Please destruct the object in the function in order to use it.
+                    - The script should include the main function named as exeFunc that can run in a NodeJS / Python3 environment with eval() / exec() function. The exeFunc function must be defined in the code.
+
+                    ** Input Schema for Runtime Tools: input_schema**
+                    - Please also return the input_schema in the script, which is a JSON schema that defines the input parameters required for the runtime tools. It will be saved in the database for future reference.
+                    - A JSON schema that defines the input parameters required for the runtime tools.
+                    - Input Schema:
+                        {
+                        "type": "object",
+                        "properties": {
+                        "location": {
+                        "type": "string",
+                            "description": "The city and state, e.g. San Francisco, CA"
+                        },
+                        "unit": {
+                            "type": "string",
+                            "enum": ["celsius", "fahrenheit"],
+                                "description": "The unit of temperature, either "celsius" or "fahrenheit""
+                            }
+                        },
+                            "required": ["location"]
+                        }
                 `,
                 'tools': [
                     {
@@ -197,8 +228,13 @@ exports.handler = async (event) => {
                                 "testArgu": {
                                     "type": "string",
                                     "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
+                                },
+                                "input_schema": {
+                                    "type" : "string",
+                                    "description" : "A JSON schema that defines the input parameters required for the runtime tools."
                                 }
-                            }
+                            },
+                            "required": ["script", "dependencies", "input_schema"]
                         }
                     },
                     {
@@ -218,8 +254,13 @@ exports.handler = async (event) => {
                                 "run_params": {
                                     "type": "string",
                                     "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
+                                },
+                                "input_schema": {
+                                    "type" : "string",
+                                    "description" : "A JSON schema that defines the input parameters required for the runtime tools."
                                 }
-                            }
+                            },
+                            "required": ["script", "dependencies", "input_schema"]
                         }
                     }
                 ]
@@ -240,7 +281,7 @@ exports.handler = async (event) => {
                 body: JSON.stringify(params)
             });
             const jsonAnthropicResponse = await anthropicResponse.json();
-            console.log('Anthropic Response : ', jsonAnthropicResponse);
+            console.log('Anthropic Response : ', JSON.stringify(jsonAnthropicResponse, null, 2));
             let toolInput = jsonAnthropicResponse.content.filter(item => item.type === 'tool_use');
             if (toolInput.length > 0) {
                 messages.push({
@@ -255,7 +296,12 @@ exports.handler = async (event) => {
                     input: {
                         profileId: profileId,
                         type: 'exeRuntime',
-                        data: JSON.stringify(arguExecRes)
+                        data: JSON.stringify({ 
+                            result : arguExecRes , 
+                            runtime : toolInput.name, 
+                            code: toolInput.input,
+                            status: (arguExecRes.error) ? 'error' : 'success'
+                        })
                     }
                 };
                 const createRuntimeLoggingRes = await apiCallRequest(createRuntimeLogging, createLogging, 'createLogging', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
