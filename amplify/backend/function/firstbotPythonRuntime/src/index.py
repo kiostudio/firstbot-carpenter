@@ -59,7 +59,7 @@ def convert_imports(script):
                             import_stmt = f"{alias.asname or alias.name} = importlib.import_module('{module}').{alias.name}"
                         new_imports.append(import_stmt)
             else:
-                other_code.append(ast.unparse(node))
+                other_code.append(ast.unparse(node)) # Requires Python 3.9+
         
         return '\n'.join(new_imports), '\n'.join(other_code)
     except Exception as e:
@@ -89,7 +89,12 @@ def handler(event, context):
 
         body = json.loads(event['body'])
 
-        if 'dependencies' not in body or 'script' not in body or 'run_params' not in body:
+        print(type(body))
+        print(body)
+
+        # script is compulsory
+        # dependencies and run_params are optional
+        if 'script' not in body:
             return {
                 'statusCode': 400,
                 'headers': {
@@ -97,44 +102,42 @@ def handler(event, context):
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
                 },
-                'body': json.dumps({'error': 'Missing required fields: dependencies, script, run_params'})
+                'body': json.dumps({'error': 'Missing required fields: script'})
             }
 
-        print(type(body))
-        print(body)
-
-        dependencies = body['dependencies']
         script = body['script']
-        run_params = json.loads(body['run_params']) if type(body['run_params']) == str else body['run_params']
 
-        result = {'execRes': ''}
+        dependencies = body['dependencies'] if 'dependencies' in body and len(body['dependencies']) > 0 else None
         if dependencies and install_package(dependencies.replace('\n', ' ')):
             print('Successfully installed all packages')
-        
-        exec_params = {}
-        if dependencies and run_params:
-            print(run_params)
-            exec_params = run_params
+
+        run_params = None
+        if 'run_params' in body and len(body['run_params']) > 0:
+            run_params = json.loads(body['run_params']) if isinstance(body['run_params'], str) else body['run_params']
 
         converted_imports, remaining_code = convert_imports(script)
 
-        print(converted_imports)
-        print(remaining_code)
+        # print(converted_imports)
+        # print(remaining_code)
 
         final_script = f"""
-print(os.environ['PYTHONPATH'])
 import importlib
+import sys
+
+sys.path.append('/tmp/pip') # Setting env var PYTHONPATH does not work in exec(), so use sys.path to set again
 
 {converted_imports}
 
 {remaining_code}
 
-exe_func_res = exeFunc(**{exec_params})
+exe_func_res = exeFunc(**{run_params})
         """
 
-        # print(final_script)
+        print(final_script)
         exec(final_script, globals()) # globals() is used to inject the imported modules AND to carry the function result
         # print(f"escaped_res: {globals()['exe_func_res']}")
+
+        result = {'execRes': ''}
         result['execRes'] = globals()['exe_func_res']
         # print(result)
         rm_dir_content('/tmp') # MUST remove /tmp to avoid package conflicts or file access by other lambda invocations during the same execution lifecycle
