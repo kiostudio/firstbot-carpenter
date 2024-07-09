@@ -92,7 +92,7 @@ export function APIKeyDialog({locale,apiClient,setChatToken,setProfileId, anthro
     return (
         <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-            <Button variant="outline">{localeString['apiKey'][locale]}</Button>
+            <Button variant="outline">{`${localeString['setup'][locale]} ${`Anthropic`} ${localeString['apiKey'][locale]}`}</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md gap-5">
             <DialogHeader>

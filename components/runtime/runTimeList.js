@@ -7,7 +7,10 @@ import { cn } from "@/lib/utils";
 
 export default function RunTimeList(props) {
     const { runTimeResults, setRunTimeResults, locale, apiClient, profileId } = props;
-    if (runTimeResults.length === 0) return <div className='w-full flex flex-row items-center justify-center h-full'>{localeString['noRuntimeResult'][locale]}</div>;
+    if (runTimeResults.length === 0) return <div className='w-full flex flex-row items-center justify-center h-full text-gray-500 text-sm'>
+        {localeString['noRuntimeResult'][locale]}
+        {/* <Button onClick={() => {}}>{`Example`}</Button> */}
+    </div>;
     return (
         <div className='w-full grid grid-cols-1 gap-2 h-auto max-h-[80dvh] overflow-y-auto'>
             {

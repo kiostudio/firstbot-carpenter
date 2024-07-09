@@ -20,6 +20,7 @@ import DarkLogo from "@/public/logo_dark.png";
 import RunTimeList from "@/components/runtime/runTimeList";
 import CopyRight from "@/components/copyRight";
 import { Github } from 'lucide-react';
+import { HeroPitch } from "@/components/setup/heroPitch";
 
 Amplify.configure({
   aws_project_region: "us-east-1",
@@ -85,9 +86,10 @@ export default function Home({ params }) {
     });
   }, [profileId, anthropicApiKey]);
   const SetUpPanel = () => {
-    return <div className='w-full h-full flex flex-col items-center justify-center gap-2'>
-      <div className="font-mono">{localeString['carpenterPitch'][locale]}</div>
+    return <div className='w-full h-full flex flex-col items-center justify-center gap-6'>
+      {/* <div className="font-mono">{localeString['carpenterPitch'][locale]}</div> */}
       {/* <div>{localeString['setupApiKeyDesToUse'][locale]}</div> */}
+      <HeroPitch locale={locale} />
       <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} />
     </div>;
   };
