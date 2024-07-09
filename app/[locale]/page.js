@@ -39,6 +39,7 @@ export default function Home({ params }) {
   const [profileId, setProfileId] = useState(null);
   const [anthropicApiKey, setAnthropicApiKey] = useState('');
   const [runTimeResults, setRunTimeResults] = useState([]);
+  const [channel, setChannel] = useState(null);
   useEffect(() => {
     if (localStorage.getItem('stremioToken')) setChatToken(localStorage.getItem('stremioToken'));
     if (localStorage.getItem('profileId')) setProfileId(localStorage.getItem('profileId'));
@@ -120,7 +121,7 @@ export default function Home({ params }) {
                 {(chatToken && profileId && anthropicApiKey) ? <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} /> : null}
               </div>
             </div>
-            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} apiClient={apiClient} profileId={profileId} />
+            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} apiClient={apiClient} profileId={profileId} channel={channel}/>
           </div>
           <CopyRight />
         </div>
@@ -128,7 +129,14 @@ export default function Home({ params }) {
           {
             (load === true) ? <Loader format='list' /> :
               (chatToken && profileId && anthropicApiKey) ?
-                <ChatInterface locale={locale} apiClient={apiClient} chatToken={chatToken} profileId={profileId} /> :
+                <ChatInterface 
+                  locale={locale} 
+                  apiClient={apiClient} 
+                  chatToken={chatToken} 
+                  profileId={profileId} 
+                  channel={channel}
+                  setChannel={setChannel}
+                /> :
                 SetUpPanel()
           }
         </div>

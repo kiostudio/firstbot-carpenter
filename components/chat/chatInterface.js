@@ -29,7 +29,7 @@ const sort = { last_message_at: -1 };
 export default function ChatInterface(props){
 
     // console.log(props);
-    const { locale, apiClient, profileId, chatToken } = props;
+    const { locale, apiClient, profileId, chatToken, channel, setChannel } = props;
     const client = useCreateChatClient({
         apiKey: process.env.NEXT_PUBLIC_streamio_key,
         tokenOrProvider: chatToken,
@@ -39,7 +39,7 @@ export default function ChatInterface(props){
     const [load, setLoad] = useState(false);
     // const { profile, displayWorkflow } = modal;
     // const [profile, setProfile] = useState(props.profile ? props.profile : null);
-    const [channel, setChannel] = useState(null);
+    // const [channel, setChannel] = useState(null);
     const [channelFilter, setChannelFilter] = useState(null);
     // const filters = { members: { $in: [`user-${profileId}`] } , type: 'messaging' };
     const [token, setToken] = useState(null);
