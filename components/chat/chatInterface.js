@@ -27,7 +27,6 @@ const sort = { last_message_at: -1 };
 
 
 export default function ChatInterface(props){
-
     // console.log(props);
     const { locale, apiClient, profileId, chatToken, channel, setChannel } = props;
     const client = useCreateChatClient({
@@ -202,10 +201,10 @@ export default function ChatInterface(props){
     // }, [token,profile,servant,servantsList]);
     if(!client) return <Loader format='list' />;
     return(
-        <div className={cn(`bg-white dark:bg-black flex items-center justify-center h-full w-full`)}>
+        <div className={cn(`bg-white dark:bg-black flex items-center justify-center w-full`, isMobile ? 'h-[60dvh]' : 'h-full')}>
             <div className='h-full w-full'>
-                {(client && channelFilter) ? <Chat client={client} theme='str-chat__theme-dark'>
-                    <div className={cn(isMobile ? `flex` : `hidden`)}>
+                {(client && channelFilter) ? <Chat client={client} theme='str-chat__theme-dark' className='flex h-full w-full'>
+                    <div className={`hidden`}>
                         <ChannelList
                             filters={channelFilter} 
                             sort={sort}

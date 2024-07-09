@@ -56,7 +56,7 @@ export function CodeSnippetDialog({locale , runTimeResult, profileId, apiClient 
         }
     }
     const CodeEditorField = (label,value,required)=>{
-        return <div className="my-2 w-full">
+        return <div className="my-2 w-full max-w-md">
             <label className="flex flex-row items-center text-slate-600 dark:text-gray-50  text-md font-bold mb-2">
                 {localeString[label][locale]}
                 {(required === true) ? <span className="text-red-400 mx-1">{'*'}</span> : null}
@@ -111,7 +111,7 @@ export function CodeSnippetDialog({locale , runTimeResult, profileId, apiClient 
                     <span>{localeString['code'][locale]}</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md gap-5">
+            <DialogContent className="gap-5">
                 <DialogHeader>
                 <DialogTitle>
                     <div className="flex flex-row items-center justify-start gap-2">

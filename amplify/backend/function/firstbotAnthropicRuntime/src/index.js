@@ -110,6 +110,28 @@ exports.handler = async (event) => {
         const textMessage = messageData.body.message.text;
         console.log(`textMessage:`, textMessage);
 
+        // Check number of logs that is related to the profileId and type is exeRuntime, last hour
+        const checkExeRuntimeLogs = async (profileId) => {
+            try {
+                const checkExeRuntimeLogsRes = await apiCallRequest({
+                    profileId: profileId,
+                    filter: { type: { eq: 'exeRuntime' } },
+                    sortDirection: 'DESC',
+                    limit: 100
+                }, getLoggingByProfileId, 'getLoggingByProfileId', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                // console.log(`checkExeRuntimeLogsRes: ${JSON.stringify(checkExeRuntimeLogsRes)}`);
+                // Filter number of exeRuntime logs that is created in the last hour
+                const currentTime = new Date();
+                const lastHour = new Date(currentTime.getTime() - 60 * 60 * 1000);
+                checkExeRuntimeLogsRes.items = checkExeRuntimeLogsRes.items.filter(log => new Date(log.createdAt) > lastHour);
+                // console.log(`checkExeRuntimeLogsRes: ${JSON.stringify(checkExeRuntimeLogsRes)}`);
+                return checkExeRuntimeLogsRes.items.length;
+            } catch (error) {
+                console.log(`Error Happens in checkExeRuntimeLogs:`, error);
+                throw new Error(error);
+            }
+        }
+                    
         // Execute the function with the arguments
         const arguExecRun = async (functionArgu, endPointUrl) => {
             let response;
@@ -214,13 +236,13 @@ exports.handler = async (event) => {
                     profileId: profileId,
                     filter: { type: { eq: 'conversation' } },
                     sortDirection: 'DESC',
-                    limit: 100
+                    limit: 50
                 };
                 if (nextToken) variables.nextToken = nextToken;
                 const getLoggingByProfileIdRes = await apiCallRequest(variables, getLoggingByProfileId, 'getLoggingByProfileId', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
                 console.log(`getLoggingByProfileIdRes: ${JSON.stringify(getLoggingByProfileIdRes)}`);
                 logs = logs.concat(getLoggingByProfileIdRes.items);
-                if (getLoggingByProfileIdRes.nextToken || logs.length < limit) return await getConversationLog(profileId, limit, getLoggingByProfileIdRes.nextToken, logs);
+                if (getLoggingByProfileIdRes.nextToken) return await getConversationLog(profileId, limit, getLoggingByProfileIdRes.nextToken, logs);
                 if (logs.length > limit) logs = logs.slice(0, limit);
                 // Sort date from oldest to newest
                 return logs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
@@ -395,6 +417,9 @@ exports.handler = async (event) => {
         }
 
         await streamIoPendingMessage(messageData.body.channel_id, profileId, true);
+        const exeRuntimeLogs = await checkExeRuntimeLogs(profileId);
+        console.log(`exeRuntimeLogs: ${exeRuntimeLogs}`);
+        if(exeRuntimeLogs > 20) await sendMessageToStreamio('Run more then 20 times of code execution in the last hour, please wait for a while', messageData.body.channel_id, profileId, 'sendMessage', null);
         let messages = [];
         // Get recent conversation log
         const conversationLogs = await getConversationLog(profileId, 25);
@@ -410,9 +435,13 @@ exports.handler = async (event) => {
             });
         }
         if (textMessage) messages = messages.concat([{ role: 'user', content: textMessage }]);
-        const aiResponse = await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
-        console.log('AI Response : ', aiResponse);
-        await streamIoPendingMessage(messageData.body.channel_id, profileId, false);
+        let aiResponse = null;
+        // aiResponse = await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
+        // console.log('AI Response : ', aiResponse);
+        while (aiResponse === null) {
+            await streamIoPendingMessage(messageData.body.channel_id, profileId, true);
+            aiResponse = await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
+        }
         await sendMessageToStreamio(aiResponse, messageData.body.channel_id, profileId, 'sendMessage', null);
         await saveConversationLog(textMessage, aiResponse, profileId);
         return {

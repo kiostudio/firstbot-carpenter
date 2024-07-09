@@ -19,6 +19,8 @@ import { useToast } from "@/components/ui/use-toast"
 import Loader from "@/components/loader"
 import { createProfile } from "@/src/graphql/mutations";
 import { firstbotStreamioAction } from "@/src/graphql/queries";
+import { SquareArrowOutUpRight } from 'lucide-react';
+
 
 export function APIKeyDialog({locale,apiClient,setChatToken,setProfileId, anthropicApiKey, setAnthropicApiKey}) {
     const { toast } = useToast();
@@ -92,13 +94,27 @@ export function APIKeyDialog({locale,apiClient,setChatToken,setProfileId, anthro
     return (
         <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-            <Button variant="outline">{`${localeString['setup'][locale]} ${`Anthropic`} ${localeString['apiKey'][locale]}`}</Button>
+            <Button variant="outline" className="gap-1">
+                <span>{`${localeString['setup'][locale]}`}</span>
+                <span className="hidden md:block">{`Anthropic`}</span>
+                <span>{`${localeString['apiKey'][locale]}`}</span>
+            </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md gap-5">
             <DialogHeader>
             <DialogTitle>{localeString['bringYourOwnKey'][locale]}</DialogTitle>
             <DialogDescription>
-                {localeString['bringYourOwnKeyDescription'][locale]}
+                <div className="flex flex-col gap-2">
+                    <span>{localeString['bringYourOwnKeyDescription'][locale]}</span>
+                    <a className="text-blue-500 hover:underline gap-2 flex flex-row items-center" href={`https://docs.anthropic.com/en/docs/quickstart#set-your-api-key`} target="_blank" rel="noreferrer">
+                        <SquareArrowOutUpRight size={16} />
+                        {localeString['howToSetupAnthropicAPIKey'][locale]}
+                    </a>
+                    <a className="text-blue-500 hover:underline gap-2 flex flex-row items-center" href={`https://app.firstbot.tech/privacypolicy`} target="_blank" rel="noreferrer">
+                        <SquareArrowOutUpRight size={16} />
+                        {localeString['privacyPolicy'][locale]}
+                    </a>
+                </div>
             </DialogDescription>
             </DialogHeader>
             <div className="flex items-center space-x-2">

@@ -5,33 +5,41 @@ import localeString from "@/lib/locale.json";
 import CarpenterAvatar from "@/public/carpenter.jpeg";
  
 export function HeroPitch({ locale }) {
-  const words = [
-    {
-        text: "Become",
-    },
-    {
-        text: "an",
-    },
-    {
-        text: "AI",
-        className: "text-yellow-500 dark:text-yellow-500"
-    },
-    {
-        text: "programmer",
-        className: "text-yellow-500 dark:text-yellow-500"
-    },
-    {
-        text: "with",
-    },
-    {
-        text: "Open",
-        className: "text-yellow-500 dark:text-yellow-500"
-    },
-    {
-        text: "Carpenter.",
-        className: "text-yellow-500 dark:text-yellow-500"
-    },
-  ];
+    const sloganLocale = localeString["slogan"][locale];
+    // "Become an AI programmer with Open Carpenter."
+//   const words = [
+//     {
+//         text: "Become",
+//     },
+//     {
+//         text: "an",
+//     },
+//     {
+//         text: "AI",
+//         className: "text-yellow-500 dark:text-yellow-500"
+//     },
+//     {
+//         text: "programmer",
+//         className: "text-yellow-500 dark:text-yellow-500"
+//     },
+//     {
+//         text: "with",
+//     },
+//     {
+//         text: "Open",
+//         className: "text-yellow-500 dark:text-yellow-500"
+//     },
+//     {
+//         text: "Carpenter.",
+//         className: "text-yellow-500 dark:text-yellow-500"
+//     },
+//   ];
+    const words = sloganLocale.split(" ").map((word, index) => {
+        return {
+            text: word,
+            className: (word.includes("AI") || word.includes("Open") || word.includes("Carpenter") || word.includes("programmer")) ? "text-yellow-500 dark:text-yellow-500" : ""
+        }
+    });
   return (
     <div className="flex flex-col items-center justify-center w-full h-fit gap-4">
         <Image src={CarpenterAvatar} width={180} height={180} alt="logo" className='rounded-md' />

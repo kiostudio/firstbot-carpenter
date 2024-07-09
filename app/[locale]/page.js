@@ -34,6 +34,7 @@ const apiClient = generateClient();
 
 export default function Home({ params }) {
   let locale = params.locale;
+  const [open, setOpen] = useState(false)
   const [load, setLoad] = useState(true);
   const [chatToken, setChatToken] = useState(null);
   const [profileId, setProfileId] = useState(null);
@@ -94,6 +95,51 @@ export default function Home({ params }) {
       <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} />
     </div>;
   };
+  const ChatInterfacePanel = () => {
+    return <div className='w-full hidden md:flex flex-col items-center justify-center h-full bg-slate-50 dark:bg-black'>
+      {
+        (load === true) ? <Loader format='list' /> :
+          (chatToken && profileId && anthropicApiKey) ?
+            <ChatInterface 
+              locale={locale} 
+              apiClient={apiClient} 
+              chatToken={chatToken} 
+              profileId={profileId} 
+              channel={channel}
+              setChannel={setChannel}
+            /> :
+            SetUpPanel()
+      }
+    </div>
+  }
+  // const MobileChatInterfacePanel = () => {
+  //   if(!anthropicApiKey) return null;
+  //   return (
+  //     <Drawer>
+  //       <DrawerTrigger asChild>
+  //         <Button variant="ghost" className="w-fit justify-start bg-black gap-2">
+  //           <MessageSquare className="w-4 h-4 text-black dark:text-white" aria-hidden="true"/>
+  //           <span>{localeString['chatWithCarpenter'][locale]}</span>
+  //         </Button>
+  //       </DrawerTrigger>
+  //       <DrawerContent>
+  //         {
+  //           // (load === true) ? <Loader format='list' /> :
+  //             (chatToken && profileId && anthropicApiKey) ?
+  //               <ChatInterface 
+  //                 locale={locale} 
+  //                 apiClient={apiClient} 
+  //                 chatToken={chatToken} 
+  //                 profileId={profileId} 
+  //                 channel={channel}
+  //                 setChannel={setChannel}
+  //               /> :
+  //               null
+  //         }
+  //       </DrawerContent>
+  //     </Drawer>
+  //   )
+  // }
   return (
     <main className={'w-full h-[100dvh] flex flex-col items-center justify-center overflow-auto'}>
       <div className='w-full flex flex-row items-start justify-start h-full'>
@@ -101,18 +147,18 @@ export default function Home({ params }) {
           <div className='w-full flex flex-col items-center justify-start h-full gap-3'>
             <div className='w-full flex flex-row items-center justify-between h-fit'>
               <div className='w-auto flex flex-row items-center justify-between'>
-                <Link href={'/'}>
+                <a href={'https://firstbot.tech/'} target='_blank' rel='noreferrer'>
                   <Button className="flex items-center gap-3" variant='ghost'>
                     <Image src={DarkLogo} width={18} height={18} alt="logo" className='hidden dark:block' />
                     <div className='hidden lg:flex text-sm font-mono text-black dark:text-white'>{localeString['brand'][locale]}</div>
                   </Button>
-                </Link>
+                </a>
               </div>
               <div className={`relative w-auto flex flex-row items-center justify-between gap-2`}>
                 <Button 
-                  className="flex items-center gap-3" 
+                  className="hidden md:flex items-center gap-3"
                   variant='ghost'
-                  onClick={() => window.open(`https://github.com/buttons/github-buttons/fork`, '_blank')}
+                  onClick={() => window.open(`https://github.com/kiostudio/firstbot-carpenter/fork`, '_blank')}
                 >
                   <Github size={16} />
                   <span>{localeString['fork'][locale]}</span>
@@ -121,25 +167,11 @@ export default function Home({ params }) {
                 {(chatToken && profileId && anthropicApiKey) ? <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} /> : null}
               </div>
             </div>
-            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} apiClient={apiClient} profileId={profileId} channel={channel}/>
+            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} apiClient={apiClient} profileId={profileId} channel={channel} SetUpPanel={SetUpPanel} anthropicApiKey={anthropicApiKey} setChannel={setChannel} chatToken={chatToken} />
           </div>
           <CopyRight />
         </div>
-        <div className='w-full hidden md:flex flex-col items-center justify-center h-full bg-slate-50 dark:bg-black'>
-          {
-            (load === true) ? <Loader format='list' /> :
-              (chatToken && profileId && anthropicApiKey) ?
-                <ChatInterface 
-                  locale={locale} 
-                  apiClient={apiClient} 
-                  chatToken={chatToken} 
-                  profileId={profileId} 
-                  channel={channel}
-                  setChannel={setChannel}
-                /> :
-                SetUpPanel()
-          }
-        </div>
+        {(isMobile) ? null : ChatInterfacePanel() }
       </div>
       <Toaster />
     </main>
