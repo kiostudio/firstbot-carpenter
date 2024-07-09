@@ -78,6 +78,22 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "firstbotTriggerRuntime": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "firstbotcarpenter"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -190,6 +206,38 @@
         {
           "category": "function",
           "resourceName": "firstbotStreamioWebhook"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotTriggerRuntime_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotTriggerRuntime"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotTriggerRuntime_firstbotNodejsRuntime": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotTriggerRuntime"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotTriggerRuntime_firstbotPythonRuntime": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotTriggerRuntime"
+        }
+      ]
+    },
+    "AMPLIFY_function_firstbotTriggerRuntime_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "firstbotTriggerRuntime"
         }
       ]
     }

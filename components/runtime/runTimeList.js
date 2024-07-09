@@ -1,25 +1,23 @@
 import { useState, useEffect } from 'react';
 import localeString from "@/lib/locale.json"
 import moment from 'moment';
-import { FaPython, FaNodeJs } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { CodeSnippetDialog } from "@/components/runtime/codeSnippetDialog";
+import { cn } from "@/lib/utils";
 
 export default function RunTimeList(props) {
-    const { runTimeResults, setRunTimeResults, locale } = props;
-    if (runTimeResults.length === 0) return <div className='w-full flex flex-row items-center justify-center h-full'>{localeString['noRuntimeResult'][locale]}</div>;
-    const runtTimeLogo = (runtime) => {
-        if(runtime === "nodejs_runtime") return <FaNodeJs className='w-5 h-5 text-green-500'/>
-        if(runtime === "python_runtime") return <FaPython className='w-5 h-5 text-yellow-500'/>
-        return null;
-    }
+    const { runTimeResults, setRunTimeResults, locale, apiClient, profileId } = props;
+    if (runTimeResults.length === 0) return <div className='w-full flex flex-row items-center justify-center h-full text-gray-500 text-sm'>
+        {localeString['noRuntimeResult'][locale]}
+        {/* <Button onClick={() => {}}>{`Example`}</Button> */}
+    </div>;
     return (
-        <div className='w-full grid grid-cols-2 gap-2 h-auto max-h-[80dvh] overflow-auto'>
+        <div className='w-full grid grid-cols-1 gap-2 h-auto max-h-[80dvh] overflow-y-auto'>
             {
                 runTimeResults.map((runTimeResult, index) => {
-                    // console.log('Run Time Result : ', runTimeResult);
+                    // console.log('Run Time Result : ', runTimeResult,index);
                     let result = (runTimeResult.result) ? runTimeResult.result : null;
-                    let error = (runTimeResult.error) ? runTimeResult.error : null;
+                    let error = (runTimeResult.result && runTimeResult.result.error) ? runTimeResult.result.error : null;
                     // Parse the result until execRes is not found
                     // if(runTimeResult.execRes) result = runTimeResult.execRes;
                     // if(result.execRes) result = result.execRes;
@@ -27,19 +25,21 @@ export default function RunTimeList(props) {
                         result = result.execRes;
                     }
                     return (
-                        <div key={index} className='w-full flex flex-col items-start justify-start gap-2 p-4 border bg-slate-800 rounded-lg text-sm h-fit'>
+                        <div key={index} className='w-full flex flex-col items-start justify-start gap-2 p-4 border bg-slate-800 rounded-lg text-sm h-auto'>
                             <div className='w-full flex flex-row items-center justify-between gap-2'>
-                                <div className='w-auto flex flex-row items-center justify-center gap-2 '>{`ID : ${runTimeResult.id.split('-')[0]}`}{runtTimeLogo(runTimeResult.runtime)}</div>
-                                <CodeSnippetDialog locale={locale} runTimeResult={runTimeResult} />
+                                <div className="w-full flex flex-row items-center justify-start gap-2">
+                                    <div className={cn(`w-fit flex flex-row items-center justify-start gap-2 p-2 rounded-md text-xs ${error ? 'bg-red-600' : 'bg-green-600'}`)}>{`${localeString[(error) ? 'error' :'success'][locale]}`}</div>
+                                    <div className='w-auto flex flex-row items-center justify-center gap-2 '>{`ID : ${runTimeResult.id.split('-')[0]}`}</div>
+                                </div>
+                                <div className='w-auto flex flex-row items-center justify-start gap-2 '>
+                                    <CodeSnippetDialog locale={locale} runTimeResult={runTimeResult} apiClient={apiClient} profileId={profileId} />
+                                </div>
                             </div>
                             <div className='w-auto flex flex-row items-center justify-start gap-2 '>
                                 {`${localeString['time'][locale]} : ${moment(runTimeResult.createdAt).format('DD MMM YYYY HH:mm:ss')}`}
                             </div>
-                            <div className='w-full flex flex-col items-start justify-start gap-2 '>
-                                <div>{`${localeString['result'][locale]} : `}</div>
-                                <div className='w-full flex flex-row items-center justify-start gap-2 bg-black p-3 rounded-md font-mono'>
-                                    {`${result}`}
-                                </div>
+                            <div className='w-full h-full flex flex-row items-center justify-start gap-2 bg-black p-3 rounded-md font-mono overflow-auto'>
+                                <p>{`${(error) ? error : result}`}</p>
                             </div>
                         </div>
                     )

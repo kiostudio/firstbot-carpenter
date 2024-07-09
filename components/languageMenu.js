@@ -35,7 +35,7 @@ export default function LanguageMenu({ callBack , locale }) {
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button variant="ghost" className="w-fit justify-start gap-2 text-slate-800 dark:text-white">
-                <Languages className="w-5 h-5 " aria-hidden="true"/>
+                <Languages className="w-4 h-4 " aria-hidden="true"/>
                 {localeString['language'][locale]}
             </Button>
           </PopoverTrigger>
@@ -50,7 +50,7 @@ export default function LanguageMenu({ callBack , locale }) {
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
           <Button variant="ghost" className="w-fit justify-start">
-            <Languages className="w-5 h-5 text-slate-800 dark:text-white" aria-hidden="true"/>
+            <Languages className="w-4 h-4 text-slate-800 dark:text-white" aria-hidden="true"/>
           </Button>
         </DrawerTrigger>
         <DrawerContent>

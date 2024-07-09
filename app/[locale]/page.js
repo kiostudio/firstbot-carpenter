@@ -19,6 +19,8 @@ import { firstbotAnthropicRuntime } from '@/src/graphql/queries';
 import DarkLogo from "@/public/logo_dark.png";
 import RunTimeList from "@/components/runtime/runTimeList";
 import CopyRight from "@/components/copyRight";
+import { Github } from 'lucide-react';
+import { HeroPitch } from "@/components/setup/heroPitch";
 
 Amplify.configure({
   aws_project_region: "us-east-1",
@@ -83,6 +85,14 @@ export default function Home({ params }) {
       }
     });
   }, [profileId, anthropicApiKey]);
+  const SetUpPanel = () => {
+    return <div className='w-full h-full flex flex-col items-center justify-center gap-6'>
+      {/* <div className="font-mono">{localeString['carpenterPitch'][locale]}</div> */}
+      {/* <div>{localeString['setupApiKeyDesToUse'][locale]}</div> */}
+      <HeroPitch locale={locale} />
+      <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} />
+    </div>;
+  };
   return (
     <main className={'w-full h-[100dvh] flex flex-col items-center justify-center overflow-auto'}>
       <div className='w-full flex flex-row items-start justify-start h-full'>
@@ -98,23 +108,28 @@ export default function Home({ params }) {
                 </Link>
               </div>
               <div className={`relative w-auto flex flex-row items-center justify-between gap-2`}>
+                <Button 
+                  className="flex items-center gap-3" 
+                  variant='ghost'
+                  onClick={() => window.open(`https://github.com/buttons/github-buttons/fork`, '_blank')}
+                >
+                  <Github size={16} />
+                  <span>{localeString['fork'][locale]}</span>
+                </Button>
                 <LanguageMenu locale={locale} />
-                <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} />
+                {(chatToken && profileId && anthropicApiKey) ? <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} /> : null}
               </div>
             </div>
-            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} />
+            <RunTimeList runTimeResults={runTimeResults} setRunTimeResults={setRunTimeResults} locale={locale} apiClient={apiClient} profileId={profileId} />
           </div>
           <CopyRight />
         </div>
-        <div className='w-full flex flex-col items-center justify-center h-full bg-slate-50 dark:bg-black'>
+        <div className='w-full hidden md:flex flex-col items-center justify-center h-full bg-slate-50 dark:bg-black'>
           {
             (load === true) ? <Loader format='list' /> :
               (chatToken && profileId && anthropicApiKey) ?
                 <ChatInterface locale={locale} apiClient={apiClient} chatToken={chatToken} profileId={profileId} /> :
-                <div className='w-full h-full flex flex-col items-center justify-center gap-2'>
-                  <div>{localeString['setupApiKeyDesToUse'][locale]}</div>
-                  <APIKeyDialog locale={locale} apiClient={apiClient} setChatToken={setChatToken} setProfileId={setProfileId} anthropicApiKey={anthropicApiKey} setAnthropicApiKey={setAnthropicApiKey} />
-                </div>
+                SetUpPanel()
           }
         </div>
       </div>
