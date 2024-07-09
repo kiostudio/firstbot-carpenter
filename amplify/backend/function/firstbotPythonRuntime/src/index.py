@@ -5,7 +5,8 @@ import ast
 import json
 import platform
 
-os.environ['PYTHONPATH'] = '/tmp/pip'
+PIP_PYTHONPATH = '/tmp/pip'
+os.environ['PYTHONPATH'] = PIP_PYTHONPATH
 
 def get_current_pip_list():
     try:
@@ -20,7 +21,7 @@ def install_package(packages):
         # MUST be used alongside PYTHONPATH = '/tmp/pip' in the lambda environment
         cmd = f"pip3 install --target '/tmp/pip' {packages}"
         res = subprocess.check_call(cmd, shell=True, stderr=subprocess.STDOUT)
-        print(res)
+        # print(res)
         return True
     except Exception as e:
         raise e
@@ -59,7 +60,7 @@ def convert_imports(script):
                             import_stmt = f"{alias.asname or alias.name} = importlib.import_module('{module}').{alias.name}"
                         new_imports.append(import_stmt)
             else:
-                other_code.append(ast.unparse(node))
+                other_code.append(ast.unparse(node)) # Requires Python 3.9+
         
         return '\n'.join(new_imports), '\n'.join(other_code)
     except Exception as e:
@@ -67,99 +68,80 @@ def convert_imports(script):
 
 def handler(event, context):
     try:
-        print('received event:')
-        print(event)
-        print('received context:')
-        print(context)
-        print("os.environ['PYTHONPATH']:")
-        print(os.environ['PYTHONPATH'])
-        print("python version:")
-        print(platform.python_version())
+        base_header_dict = {
+            'headers': {
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            }
+        }
 
-        if event['body'] is None or event['body'] == '' or event['body'] == {}:
+        body = event.get('body')
+        print(f"received event body: {body or 'No body provided'}")
+
+        if body is None or body == '' or body == {}:
             return {
                 'statusCode': 400,
-                'headers': {
-                    'Access-Control-Allow-Headers': '*',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-                },
-                'body': json.dumps({'error': 'No body provided'})
+                'body': json.dumps({'error': 'No body provided'}),
+                **base_header_dict
             }
 
-        body = json.loads(event['body'])
+        body = json.loads(body)
 
-        if 'dependencies' not in body or 'script' not in body or 'run_params' not in body:
+        # script is compulsory
+        if 'script' not in body:
             return {
                 'statusCode': 400,
-                'headers': {
-                    'Access-Control-Allow-Headers': '*',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-                },
-                'body': json.dumps({'error': 'Missing required fields: dependencies, script, run_params'})
+                'body': json.dumps({'error': 'Missing required fields: script'}),
+                **base_header_dict
             }
 
-        print(type(body))
-        print(body)
-
-        dependencies = body['dependencies']
-        script = body['script']
-        run_params = json.loads(body['run_params']) if type(body['run_params']) == str else body['run_params']
-
-        result = {'execRes': ''}
-        if dependencies and install_package(dependencies.replace('\n', ' ')):
-            print('Successfully installed all packages')
-        
-        exec_params = {}
-        if dependencies and run_params:
-            print(run_params)
-            exec_params = run_params
-
+        script = body.get('script')
         converted_imports, remaining_code = convert_imports(script)
 
-        print(converted_imports)
-        print(remaining_code)
+        # dependencies and run_params are optional
+        dependencies = body.get('dependencies', None)
+        if dependencies and len(dependencies) > 0:
+            dependencies = dependencies.replace('\n', ' ')
+            install_package(dependencies)
+            print('Successfully installed all packages: ')
+
+        run_params = body.get('run_params', {}) # Must use an empty dict or exec() will throw an error
+        if run_params and len(run_params) > 0:
+            run_params = json.loads(run_params) if isinstance(run_params, str) else run_params
 
         final_script = f"""
-print(os.environ['PYTHONPATH'])
 import importlib
+import sys
+
+sys.path.append('{PIP_PYTHONPATH}') # Setting env var PYTHONPATH does not work in exec(), so use sys.path to set again
 
 {converted_imports}
 
 {remaining_code}
 
-exe_func_res = exeFunc(**{exec_params})
+exe_func_res = exeFunc(**{run_params})
         """
 
-        # print(final_script)
         exec(final_script, globals()) # globals() is used to inject the imported modules AND to carry the function result
-        # print(f"escaped_res: {globals()['exe_func_res']}")
-        result['execRes'] = globals()['exe_func_res']
-        # print(result)
+
+        result = {'exeRes': ''}
+        result['exeRes'] = globals()['exe_func_res']
+        print(f"exeRes: {result['exeRes']}")
         rm_dir_content('/tmp') # MUST remove /tmp to avoid package conflicts or file access by other lambda invocations during the same execution lifecycle
-        # print(os.listdir('/tmp'))
 
         return {
             'statusCode': 200,
-            'headers': {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-            },
-            'body': json.dumps(result)
+            'body': json.dumps(result),
+            **base_header_dict
         }
 
     except Exception as e:
         print(f"Error: {e}")
-        print(f"line: {e.__traceback__.tb_lineno}")
+        print(f"Line no.: {e.__traceback__.tb_lineno}")
 
         return {
             'statusCode': 500,
-            'headers': {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-            },
-            'body': json.dumps({'error': str(e)})
+            'body': json.dumps({'error': str(e)}),
+            **base_header_dict
         }

@@ -119,18 +119,18 @@ exports.handler = async (event) => {
                 const scriptRunRes = await fetch(endPointUrl, {
                     method: 'post',
                     // body: JSON.stringify({
-                        // script: `const fetch = require('node-fetch');
-                        //     async function exeFunc(params){
-                        //     const response = await fetch('https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/',{
-                        //         method: 'post',
-                        //         body: JSON.stringify(params),
-                        //         headers: {'Content-Type': 'application/json'}
-                        //     });
-                        //     const body = await response.json();
-                        //     return body;
-                        // }`,
-                        // dependencies: `{"node-fetch": "2"}`,
-                        // run_params: JSON.stringify({ ...functionArgu })
+                    // script: `const fetch = require('node-fetch');
+                    //     async function exeFunc(params){
+                    //     const response = await fetch('https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/',{
+                    //         method: 'post',
+                    //         body: JSON.stringify(params),
+                    //         headers: {'Content-Type': 'application/json'}
+                    //     });
+                    //     const body = await response.json();
+                    //     return body;
+                    // }`,
+                    // dependencies: `{"node-fetch": "2"}`,
+                    // testArgu: JSON.stringify({ ...functionArgu })
                     // }),
                     body: typeof functionArgu === 'string' ? functionArgu : JSON.stringify(functionArgu),
                     headers: { 'Content-Type': 'application/json' }
@@ -216,12 +216,12 @@ exports.handler = async (event) => {
                     sortDirection: 'DESC',
                     limit: 100
                 };
-                if(nextToken) variables.nextToken = nextToken;
+                if (nextToken) variables.nextToken = nextToken;
                 const getLoggingByProfileIdRes = await apiCallRequest(variables, getLoggingByProfileId, 'getLoggingByProfileId', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
                 console.log(`getLoggingByProfileIdRes: ${JSON.stringify(getLoggingByProfileIdRes)}`);
                 logs = logs.concat(getLoggingByProfileIdRes.items);
-                if(getLoggingByProfileIdRes.nextToken || logs.length < limit) return await getConversationLog(profileId, limit, getLoggingByProfileIdRes.nextToken, logs);
-                if(logs.length > limit) logs = logs.slice(0, limit);
+                if (getLoggingByProfileIdRes.nextToken || logs.length < limit) return await getConversationLog(profileId, limit, getLoggingByProfileIdRes.nextToken, logs);
+                if (logs.length > limit) logs = logs.slice(0, limit);
                 // Sort date from oldest to newest
                 return logs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
             } catch (error) {
@@ -246,11 +246,14 @@ exports.handler = async (event) => {
 
                     ** Scripting : exeFunc**
                     - Make sure the main calling an async function is called exeFunc in the script. This function should be defined in the code snippet you provide.
-                    - For example : async function exeFunc(params){ 
+                    - For example in nodejs: async function exeFunc(params){ 
                         const { input1, input2 } = params;
                         // Your code here
                         return 'Your output';
                     }
+                    - For example in python3: def exeFunc(**params):
+                        // Your code here
+                        return 'Your output';
                     - The input parameters for the exeFunc function should be passed as a JSON object, so please destruct the object in the function in order to use it.
 
                     ** Dependencies: dependencies**
@@ -301,8 +304,8 @@ exports.handler = async (event) => {
                                     "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
                                 },
                                 "input_schema": {
-                                    "type" : "string",
-                                    "description" : "A JSON schema that defines the input parameters required for the runtime tools."
+                                    "type": "string",
+                                    "description": "A JSON schema that defines the input parameters required for the runtime tools."
                                 }
                             },
                             "required": ["script", "dependencies", "input_schema", "run_params"]
@@ -310,7 +313,7 @@ exports.handler = async (event) => {
                     },
                     {
                         'name': 'python_runtime',
-                        'description': 'This is the script of the running and testing environment : ',
+                        'description': 'This is the script of the running and testing environment : def handler(event, context): try: script = event["script"] dependencies = event["dependencies"] or None run_params = event["runParams"] or None converted_imports, remaining_code = convert_imports(script) final_script = f""" import importlib import sys sys.path.append("/tmp/pip") # Setting env var PYTHONPATH does not work in exec(), so use sys.path to set again {converted_imports} {remaining_code} exe_func_res = exeFunc(**{run_params}) """ exec(final_script, globals()) result = {"execRes": ""} result["execRes"] = globals()["exe_func_res"] return { "statusCode": 200, "body": json.dumps(result) } except Exception as e: return { "statusCode": 500, "body": json.dumps({"error": str(e)}) }',
                         'input_schema': {
                             'type': 'object',
                             'properties': {
@@ -327,8 +330,8 @@ exports.handler = async (event) => {
                                     "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
                                 },
                                 "input_schema": {
-                                    "type" : "string",
-                                    "description" : "A JSON schema that defines the input parameters required for the runtime tools."
+                                    "type": "string",
+                                    "description": "A JSON schema that defines the input parameters required for the runtime tools."
                                 }
                             },
                             "required": ["script", "dependencies", "input_schema", "run_params"]
@@ -367,9 +370,9 @@ exports.handler = async (event) => {
                     input: {
                         profileId: profileId,
                         type: 'exeRuntime',
-                        data: JSON.stringify({ 
-                            result : arguExecRes , 
-                            runtime : toolInput.name, 
+                        data: JSON.stringify({
+                            result: arguExecRes,
+                            runtime: toolInput.name,
                             code: toolInput.input,
                             status: (arguExecRes.error) ? 'error' : 'success'
                         })
@@ -399,14 +402,14 @@ exports.handler = async (event) => {
         // If there is a conversation log, add it to the messages
         if (conversationLogs.length > 0) {
             conversationLogs.forEach(log => {
-                if(!log.data) return;
-                if(log.type !== 'conversation') return;
-                if(typeof log.data === 'string') log.data = JSON.parse(log.data);
-                if(log.data.user) messages.push({ role: 'user', content: log.data.user });
-                if(log.data.ai) messages.push({ role: 'assistant', content: log.data.ai });
+                if (!log.data) return;
+                if (log.type !== 'conversation') return;
+                if (typeof log.data === 'string') log.data = JSON.parse(log.data);
+                if (log.data.user) messages.push({ role: 'user', content: log.data.user });
+                if (log.data.ai) messages.push({ role: 'assistant', content: log.data.ai });
             });
         }
-        if(textMessage) messages = messages.concat([{ role: 'user', content: textMessage }]);
+        if (textMessage) messages = messages.concat([{ role: 'user', content: textMessage }]);
         const aiResponse = await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
         console.log('AI Response : ', aiResponse);
         await streamIoPendingMessage(messageData.body.channel_id, profileId, false);
