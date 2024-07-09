@@ -24,6 +24,38 @@ const createLogging = /* GraphQL */ `
   }
 `;
 
+const getLoggingByProfileId = /* GraphQL */ `
+  query GetLoggingByProfileId(
+    $profileId: ID!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLoggingFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getLoggingByProfileId(
+      profileId: $profileId
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        createdAt
+        updatedAt
+        profileId
+        type
+        data
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+
 const firstbotStreamioAction = /* GraphQL */ `
   query FirstbotStreamioAction($params: String) {
     firstbotStreamioAction(params: $params)
@@ -98,7 +130,7 @@ exports.handler = async (event) => {
                         //     return body;
                         // }`,
                         // dependencies: `{"node-fetch": "2"}`,
-                        // testArgu: JSON.stringify({ ...functionArgu })
+                        // run_params: JSON.stringify({ ...functionArgu })
                     // }),
                     body: typeof functionArgu === 'string' ? functionArgu : JSON.stringify(functionArgu),
                     headers: { 'Content-Type': 'application/json' }
@@ -158,12 +190,51 @@ exports.handler = async (event) => {
             }
         }
 
+        // Save conversation as a log
+        const saveConversationLog = async (userMessage, aiResponse, profileId) => {
+            try {
+                const createLoggingRes = await apiCallRequest({
+                    input: {
+                        profileId: profileId,
+                        type: 'conversation',
+                        data: JSON.stringify({ user: userMessage, ai: aiResponse })
+                    }
+                }, createLogging, 'createLogging', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                console.log(`createLoggingRes: ${JSON.stringify(createLoggingRes)}`);
+            } catch (error) {
+                console.log(`Error Happens in saveConversationLog:`, error);
+                throw new Error(error);
+            }
+        }
+
+        // Retrive the conversation log by profileId
+        const getConversationLog = async (profileId, limit = 10, nextToken = null, logs = []) => {
+            try {
+                let variables = {
+                    profileId: profileId,
+                    filter: { type: { eq: 'conversation' } },
+                    sortDirection: 'DESC',
+                    limit: 100
+                };
+                if(nextToken) variables.nextToken = nextToken;
+                const getLoggingByProfileIdRes = await apiCallRequest(variables, getLoggingByProfileId, 'getLoggingByProfileId', process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIENDPOINTOUTPUT, process.env.API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT);
+                console.log(`getLoggingByProfileIdRes: ${JSON.stringify(getLoggingByProfileIdRes)}`);
+                logs = logs.concat(getLoggingByProfileIdRes.items);
+                if(getLoggingByProfileIdRes.nextToken || logs.length < limit) return await getConversationLog(profileId, limit, getLoggingByProfileIdRes.nextToken, logs);
+                if(logs.length > limit) logs = logs.slice(0, limit);
+                // Sort date from oldest to newest
+                return logs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            } catch (error) {
+                console.log(`Error Happens in getConversationLog:`, error);
+                throw new Error(error);
+            }
+        }
 
         // Anthropic Runtime Function
         const anthropicRuntimeFunc = async (messages, anthropicApiKey, profileId) => {
-            console.log('Anthropic Runtime Function', messages, profileId);
+            console.log('Anthropic Runtime Function', JSON.stringify(messages, null, 2), profileId);
             let params = {
-                'model': `claude-3-sonnet-20240229`,
+                'model': `claude-3-5-sonnet-20240620`,
                 'max_tokens': 4096,
                 'messages': messages,
                 'system': ` I am Carpenter, a skilled NodeJS / Python developer specialized in writing, testing, and deploying NodeJS / Python scripts on AWS Lambda.
@@ -185,9 +256,9 @@ exports.handler = async (event) => {
                     ** Dependencies: dependencies**
                     - Please include all the dependencies required to run the function and the latest version correspondingly. It should look like the dependencies property in a package.json file. Don't include any default NodeJS / Python module.
 
-                    **Testing Protocols: testArgu**
+                    **Testing Protocols: run_params**
                     - During script testing, there is no need for manual trigger of the execution function ('exeFunc'). The test environment is designed to automatically trigger this function when test parameters are provided, simplifying the process and ensuring consistency in script execution.
-                    - the testArgu parameter should be a JSON object that acts as the arguments to test the exeFunc function. It will be passed to the exeFunc and executed. Please destruct the object in the function in order to use it.
+                    - the run_params parameter should be a JSON object that acts as the arguments to test the exeFunc function. It will be passed to the exeFunc and executed. Please destruct the object in the function in order to use it.
                     - The script should include the main function named as exeFunc that can run in a NodeJS / Python3 environment with eval() / exec() function. The exeFunc function must be defined in the code.
 
                     ** Input Schema for Runtime Tools: input_schema**
@@ -213,7 +284,7 @@ exports.handler = async (event) => {
                 'tools': [
                     {
                         'name': 'nodejs_runtime',
-                        'description': 'This is the script of the running and testing environment : exports.handler = async (event) => { try { eval(script); if(script.includes("async")){ execRes = await exeFunc(testArgu); } else { execRes = exeFunc(testArgu); } return { statusCode: 200, body: JSON.stringify({ execRes : execRes }) }; } catch (error) { console.log(`ERROR:`,error); return { statusCode: 500, body: JSON.stringify({ error : error.message }) }; } };',
+                        'description': 'This is the script of the running and testing environment : exports.handler = async (event) => { try { eval(script); if(script.includes("async")){ execRes = await exeFunc(run_params); } else { execRes = exeFunc(run_params); } return { statusCode: 200, body: JSON.stringify({ execRes : execRes }) }; } catch (error) { console.log(`ERROR:`,error); return { statusCode: 500, body: JSON.stringify({ error : error.message }) }; } };',
                         'input_schema': {
                             'type': 'object',
                             'properties': {
@@ -225,7 +296,7 @@ exports.handler = async (event) => {
                                     "type": "string",
                                     "description": "A stringify JSON object include all the dependencies required to run the function and the latest version correspondingly. It should look like the dependencies property in a package.json file. Don't include any default NodeJS / Python module.",
                                 },
-                                "testArgu": {
+                                "run_params": {
                                     "type": "string",
                                     "description": "A stringify JSON object that act as the arguments to test the exeFunc function. It will pass to the exeFunc and execute.",
                                 },
@@ -234,7 +305,7 @@ exports.handler = async (event) => {
                                     "description" : "A JSON schema that defines the input parameters required for the runtime tools."
                                 }
                             },
-                            "required": ["script", "dependencies", "input_schema"]
+                            "required": ["script", "dependencies", "input_schema", "run_params"]
                         }
                     },
                     {
@@ -260,7 +331,7 @@ exports.handler = async (event) => {
                                     "description" : "A JSON schema that defines the input parameters required for the runtime tools."
                                 }
                             },
-                            "required": ["script", "dependencies", "input_schema"]
+                            "required": ["script", "dependencies", "input_schema", "run_params"]
                         }
                     }
                 ]
@@ -320,13 +391,27 @@ exports.handler = async (event) => {
             return jsonAnthropicResponse.content[0].text;;
         }
 
-        let messages = [];
-        if (textMessage) messages.push({ role: 'user', content: textMessage });
         await streamIoPendingMessage(messageData.body.channel_id, profileId, true);
+        let messages = [];
+        // Get recent conversation log
+        const conversationLogs = await getConversationLog(profileId, 25);
+        console.log(`conversationLogs: ${JSON.stringify(conversationLogs)}`);
+        // If there is a conversation log, add it to the messages
+        if (conversationLogs.length > 0) {
+            conversationLogs.forEach(log => {
+                if(!log.data) return;
+                if(log.type !== 'conversation') return;
+                if(typeof log.data === 'string') log.data = JSON.parse(log.data);
+                if(log.data.user) messages.push({ role: 'user', content: log.data.user });
+                if(log.data.ai) messages.push({ role: 'assistant', content: log.data.ai });
+            });
+        }
+        if(textMessage) messages = messages.concat([{ role: 'user', content: textMessage }]);
         const aiResponse = await anthropicRuntimeFunc(messages, anthropicApiKey, profileId);
         console.log('AI Response : ', aiResponse);
         await streamIoPendingMessage(messageData.body.channel_id, profileId, false);
         await sendMessageToStreamio(aiResponse, messageData.body.channel_id, profileId, 'sendMessage', null);
+        await saveConversationLog(textMessage, aiResponse, profileId);
         return {
             statusCode: 200,
             body: JSON.stringify('Anthropic Processed')

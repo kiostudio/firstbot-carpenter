@@ -21,4 +21,5 @@ type Logging @model{
 type Query {
   firstbotStreamioAction(params: String): String @function(name: "firstbotStreamioAction-${env}")
   firstbotAnthropicRuntime(params: String): String @function(name: "firstbotAnthropicRuntime-${env}")
+  firstbotTriggerRuntime(params: String): String @function(name: "firstbotTriggerRuntime-${env}")
 }

@@ -11,6 +11,11 @@ export const firstbotAnthropicRuntime = /* GraphQL */ `
     firstbotAnthropicRuntime(params: $params)
   }
 `;
+export const firstbotTriggerRuntime = /* GraphQL */ `
+  query FirstbotTriggerRuntime($params: String) {
+    firstbotTriggerRuntime(params: $params)
+  }
+`;
 export const getProfile = /* GraphQL */ `
   query GetProfile($id: ID!) {
     getProfile(id: $id) {

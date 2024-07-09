@@ -15,13 +15,13 @@
       "function": {
         "firstbotAnthropicRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
-          "s3Key": "amplify-builds/firstbotAnthropicRuntime-6331342f594a4b542b4a-build.zip",
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-746a4e77357137614161-build.zip",
           "firstbotNodejsRuntime": "https://2mrzbycdmxt7rie6gpmofrf5340dgidj.lambda-url.us-east-1.on.aws/",
           "firstbotPythonRuntime": "https://l3gp4aeju2m7jmrezytn3wep4u0jxtaj.lambda-url.us-east-1.on.aws/"
         },
         "firstbotNodeJsRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
-          "s3Key": "amplify-builds/firstbotNodeJsRuntime-665a466b6c7748745753-build.zip"
+          "s3Key": "amplify-builds/firstbotNodeJsRuntime-6667534c5452376c4578-build.zip"
         },
         "firstbotPythonRuntime": {
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
@@ -37,7 +37,13 @@
           "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
           "s3Key": "amplify-builds/firstbotStreamioWebhook-39786d31722f43347749-build.zip"
         },
-        "firstbotcarpenter": {}
+        "firstbotcarpenter": {},
+        "firstbotTriggerRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-bendev-111458-deployment",
+          "s3Key": "amplify-builds/firstbotTriggerRuntime-4835686545782f38304b-build.zip",
+          "firstbotNodejsRuntime": "https://2mrzbycdmxt7rie6gpmofrf5340dgidj.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://l3gp4aeju2m7jmrezytn3wep4u0jxtaj.lambda-url.us-east-1.on.aws/"
+        }
       },
       "api": {
         "firstbotcarpenter": {}

@@ -206,17 +206,17 @@ export default function ChatInterface(props){
             <div className='h-full w-full'>
                 {(client && channelFilter) ? <Chat client={client} theme='str-chat__theme-dark'>
                     <div className={cn(isMobile ? `flex` : `hidden`)}>
-                    <ChannelList
-                        filters={channelFilter} 
-                        sort={sort}
-                        options={options}
-                    />
+                        <ChannelList
+                            filters={channelFilter} 
+                            sort={sort}
+                            options={options}
+                        />
                     </div>
                     <Channel>
                         <Window>
                             <ChannelHeader />
                             <MessageList/>
-                            <MessageInput />
+                            <MessageInput grow={true} />
                         </Window>
                     <Thread />
                     </Channel>

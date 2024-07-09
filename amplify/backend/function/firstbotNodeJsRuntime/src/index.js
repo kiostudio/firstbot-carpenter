@@ -8,16 +8,16 @@ exports.handler = async (event) => {
     try {
         let execRes;
         const { body } = event;
-        let { script, dependencies, testArgu } = JSON.parse(body);
+        let { script, dependencies, run_params } = JSON.parse(body);
         if(!script) throw new Error('Script is required');
         if(!script.includes('exeFunc')) throw new Error('Script must include exeFunc');
         if(!dependencies) throw new Error('Dependencies is required');
-        if(!testArgu) throw new Error('RunParams is required');
+        if(!run_params) throw new Error('RunParams is required');
         if(typeof dependencies === 'string') dependencies = JSON.parse(dependencies);
-        if(typeof testArgu === 'string') testArgu = JSON.parse(testArgu);
+        if(typeof run_params === 'string') run_params = JSON.parse(run_params);
         console.log(`script: ${script}`);
         console.log(`dependencies:`,dependencies);
-        console.log('testArgu:',testArgu);
+        console.log('run_params:',run_params);
         if(dependencies){
             const { execSync } = require("child_process");
             const dir = '/tmp';
@@ -31,9 +31,9 @@ exports.handler = async (event) => {
         console.log(`script: ${script}`);
         eval(script);
         if(script.includes('async')){
-            execRes = await exeFunc(testArgu);
+            execRes = await exeFunc(run_params);
         } else {
-            execRes = exeFunc(testArgu);
+            execRes = exeFunc(run_params);
         }
         console.log(`execRes: ${JSON.stringify(execRes)}`);
         return {
