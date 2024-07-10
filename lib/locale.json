@@ -661,7 +661,7 @@
         "tr-TR": "Zaman",
         "uk-UA": "Час"
     },
-    "code":{
+    "code": {
         "en-US": "Code",
         "en-AU": "Code",
         "en-CA": "Code",
@@ -700,7 +700,7 @@
         "tr-TR": "Kod",
         "uk-UA": "Код"
     },
-    "codeSnippetWrittenByAi":{
+    "codeSnippetWrittenByAi": {
         "en-US": "Code snippet written by AI, feel free to copy it",
         "en-AU": "Code snippet written by AI, feel free to copy it",
         "en-CA": "Code snippet written by AI, feel free to copy it",
@@ -739,7 +739,7 @@
         "tr-TR": "AI tarafından yazılan kod parçası, istediğiniz gibi kopyalayabilirsiniz",
         "uk-UA": "Фрагмент коду, написаний штучним інтелектом, не соромтеся копіювати"
     },
-    "script":{
+    "script": {
         "en-US": "Script",
         "en-AU": "Script",
         "en-CA": "Script",
@@ -778,7 +778,7 @@
         "tr-TR": "Senaryo",
         "uk-UA": "Сценарій"
     },
-    "dependencies":{
+    "dependencies": {
         "en-US": "Dependencies",
         "en-AU": "Dependencies",
         "en-CA": "Dependencies",
@@ -817,7 +817,7 @@
         "tr-TR": "Bağımlılıklar",
         "uk-UA": "Залежності"
     },
-    "run_params":{
+    "run_params": {
         "en-US": "Run Params",
         "en-AU": "Run Params",
         "en-CA": "Run Params",
@@ -856,7 +856,7 @@
         "tr-TR": "Çalıştırma Parametreleri",
         "uk-UA": "Параметри запуску"
     },
-    "input_schema":{
+    "input_schema": {
         "en-US": "Input Schema",
         "en-AU": "Input Schema",
         "en-CA": "Input Schema",
@@ -934,7 +934,7 @@
         "tr-TR": "Bilgi",
         "uk-UA": "Інформація"
     },
-    "copiedToClipboard":{
+    "copiedToClipboard": {
         "en-US": "Copied to clipboard",
         "en-AU": "Copied to clipboard",
         "en-CA": "Copied to clipboard",
@@ -973,7 +973,7 @@
         "tr-TR": "Panoya kopyalandı",
         "uk-UA": "Скопійовано в буфер обміну"
     },
-    "run":{
+    "run": {
         "en-US": "Run",
         "en-AU": "Run",
         "en-CA": "Run",
@@ -1012,7 +1012,7 @@
         "tr-TR": "Çalıştır",
         "uk-UA": "Запустити"
     },
-    "fork":{
+    "fork": {
         "en-US": "Fork",
         "en-AU": "Fork",
         "en-CA": "Fork",
@@ -1051,7 +1051,7 @@
         "tr-TR": "Fork",
         "uk-UA": "Fork"
     },
-    "carpenterPitch":{
+    "carpenterPitch": {
         "en-US": "Anyone can become an AI programmer with Carpenter.",
         "en-AU": "Anyone can become an AI programmer with Carpenter.",
         "en-CA": "Anyone can become an AI programmer with Carpenter.",
@@ -1090,7 +1090,7 @@
         "tr-TR": "Herkes Carpenter ile bir AI programcısı olabilir.",
         "uk-UA": "Кожен може стати програмістом штучного інтелекту з Carpenter."
     },
-    "carpenterDes":{
+    "carpenterDes": {
         "en-US": "Use natural language to describe your programming needs, and this AI will generate and execute NodeJS or Python code based on your input.",
         "en-AU": "Use natural language to describe your programming needs, and this AI will generate and execute NodeJS or Python code based on your input.",
         "en-CA": "Use natural language to describe your programming needs, and this AI will generate and execute NodeJS or Python code based on your input.",
@@ -1129,7 +1129,7 @@
         "tr-TR": "Programlama ihtiyaçlarınızı açıklamak için doğal dil kullanın ve bu AI, girişinize dayanarak NodeJS veya Python kodu oluşturacak ve çalıştıracaktır.",
         "uk-UA": "Використовуйте природну мову для опису своїх програмістських потреб, і цей ШІ згенерує та виконає код NodeJS або Python на основі вашого вводу."
     },
-    "setup":{
+    "setup": {
         "en-US": "Setup",
         "en-AU": "Setup",
         "en-CA": "Setup",
@@ -1207,7 +1207,7 @@
         "tr-TR": "Çalışma zamanı sonucu yok.",
         "uk-UA": "Немає результату виконання."
     },
-    "useMessageTemplate":{
+    "useMessageTemplate": {
         "en-US": "Please try any of the follwing template messages : ",
         "en-AU": "Please try any of the follwing template messages : ",
         "en-CA": "Please try any of the follwing template messages : ",
@@ -1246,7 +1246,7 @@
         "tr-TR": "Lütfen aşağıdaki şablon mesajlardan herhangi birini deneyin : ",
         "uk-UA": "Спробуйте будь-яке з наступних шаблонних повідомлень : "
     },
-    "templateMsg1":{
+    "templateMsg1": {
         "en-US": "Write Python function for even numbers.",
         "en-AU": "Write Python function for even numbers.",
         "en-CA": "Write Python function for even numbers.",
@@ -1285,7 +1285,7 @@
         "tr-TR": "Çift sayılar için Python işlevi yazın.",
         "uk-UA": "Напишіть функцію Python для парних чисел."
     },
-    "templateMsgDetail1":{
+    "templateMsgDetail1": {
         "en-US": "Would you help me write a python function which gets me the even numbers within a user-supplied function input number. The function will only return the result in a list of numbers ONLY. Try to test the function with tools available. The user-supplied function input this time is 99. tell me the result or error if any.",
         "en-AU": "Would you help me write a python function which gets me the even numbers within a user-supplied function input number. The function will only return the result in a list of numbers ONLY. Try to test the function with tools available. The user-supplied function input this time is 99. tell me the result or error if any.",
         "en-CA": "Would you help me write a python function which gets me the even numbers within a user-supplied function input number. The function will only return the result in a list of numbers ONLY. Try to test the function with tools available. The user-supplied function input this time is 99. tell me the result or error if any.",
@@ -1324,7 +1324,7 @@
         "tr-TR": "Bana kullanıcı tarafından sağlanan bir işlev giriş numarası içindeki çift sayıları veren bir python işlevi yazmama yardım eder misiniz? Fonksiyon yalnızca sonucu SADECE sayı listesinde döndürecektir. Mevcut araçlarla işlevi test etmeye çalışın. Bu sefer kullanıcı tarafından sağlanan işlev girişi 99'dur. sonucu veya hata durumunu bana söyleyin.",
         "uk-UA": "Чи допоможете мені написати функцію Python, яка дозволяє мені отримувати парні числа в межах числа введення функції, яке надається користувачем. Функція поверне результат лише у списку чисел ТІЛЬКИ. Спробуйте протестувати функцію за допомогою доступних інструментів. Число введення функції, надане користувачем цього разу, - 99. скажіть мені результат або помилку, якщо така є."
     },
-    "templateMsg2":{
+    "templateMsg2": {
         "en-US": "Write Node.js timezone time function.",
         "en-AU": "Write Node.js timezone time function.",
         "en-CA": "Write Node.js timezone time function.",
@@ -1363,46 +1363,46 @@
         "tr-TR": "Node.js zaman dilimi zaman işlevini yazın.",
         "uk-UA": "Напишіть функцію часового поясу Node.js."
     },
-    "templateMsgDetail2":{
-        "en-US": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : HK timezone",
-        "en-AU": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : HK timezone",
-        "en-CA": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : HK timezone",
-        "en-GB": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : HK timezone",
-        "es-ES": "Escribe una función de nodejs que pueda devolverme la hora de cualquier zona horaria diferente para mí ahora, devuelve el valor. Asegúrate de que la función tenga un argumento que sea la zona horaria. Ejecútalo junto con el argumento: zona horaria de HK",
-        "es-MX": "Escribe una función de nodejs que pueda devolverme la hora de cualquier zona horaria diferente para mí ahora, devuelve el valor. Asegúrate de que la función tenga un argumento que sea la zona horaria. Ejecútalo junto con el argumento: zona horaria de HK",
-        "zh-HK": "為我寫一個 nodejs 函數，現在可以為我返回不同時區的任何時間，返回值。確保函數有一個參數，即時區。與參數一起測試運行：HK 時區",
-        "zh-TW": "為我寫一個 nodejs 函數，現在可以為我返回不同時區的任何時間，返回值。確保函數有一個參數，即時區。與參數一起測試運行：HK 時區",
-        "zh-CN": "为我写一个 nodejs 函数，现在可以为我返回不同时区的任何时间，返回值。确保函数有一个参数，即时区。与参数一起测试运行：HK 时区",
-        "ja-JP": "私のために異なるタイムゾーンの任意の時間を返す nodejs 関数を書いてください。値を返します。関数にはタイムゾーンである引数があることを確認してください。引数と一緒にテスト実行してください：HK タイムゾーン",
-        "ko-KR": "지금 나를 위해 다른 시간대의 어떤 시간이든 반환할 수 있는 nodejs 함수를 작성하십시오. 값을 반환합니다. 함수에는 시간대 인수가 있어야합니다. 인수와 함께 테스트 실행 : HK 시간대",
-        "ar-AE": "اكتب وظيفة nodejs يمكنها إعادة أي وقت من منطقة زمنية مختلفة لي الآن ، وإعادة القيمة. تأكد من أن الوظيفة لديها arugment وهو المنطقة الزمنية. تشغيل الاختبار مع arugment: منطقة زمنية HK",
-        "ar-SA": "اكتب وظيفة nodejs يمكنها إعادة أي وقت من منطقة زمنية مختلفة لي الآن ، وإعادة القيمة. تأكد من أن الوظيفة لديها arugment وهو المنطقة الزمنية. تشغيل الاختبار مع arugment: منطقة زمنية HK",
-        "bg-BG": "Напишете функция на nodejs, която може да ми върне всяко време от различна часова зона сега, върнете стойността. Уверете се, че функцията има аргумент, който е часовата зона. Тествайте го заедно с аргумента: HK часова зона",
-        "cs-CZ": "Napište funkci nodejs, která mi nyní může vrátit jakýkoli čas z různého časového pásma, vraťte hodnotu. Ujistěte se, že funkce má argument, který je časové pásmo. Spusťte test spolu s argumentem: HK časové pásmo",
-        "da-DK": "Skriv en nodejs-funktion, der kan returnere enhver tid fra en anden tidszone for mig nu, returnere værdien. Sørg for, at funktionen har et argument, der er tidszonen. Testkør det sammen med argumentet: HK tidszone",
-        "de-DE": "Schreiben Sie eine nodejs-Funktion, die mir jetzt die beliebige Zeit einer anderen Zeitzone zurückgeben kann, geben Sie den Wert zurück. Stellen Sie sicher, dass die Funktion ein Argument hat, das die Zeitzone ist. Testen Sie es zusammen mit dem Argument: HK-Zeitzone",
-        "el-GR": "Γράψτε μια λειτουργία nodejs που μπορεί να μου επιστρέψει την οποιαδήποτε ώρα μιας διαφορετικής ζώνης τώρα, επιστρέψτε την τιμή. Βεβαιωθείτε ότι η λειτουργία έχει ένα όρισμα που είναι η ζώνη ώρας. Δοκιμάστε το μαζί με το όρισμα: Ζώνη ώρας HK",
-        "fi-FI": "Kirjoita nodejs-funktio, joka voi palauttaa minulle nyt minkä tahansa aikavyöhykkeen ajan, palauta arvo. Varmista, että funktiolla on argumentti, joka on aikavyöhyke. Testaa se yhdessä argumentin kanssa: HK aikavyöhyke",
-        "fil-PH": "Magsulat ng isang nodejs function na maaaring ibalik ang anumang oras ng iba't ibang timezone para sa akin ngayon, ibalik ang halaga. Siguruhing may arugment ang function na ito na ang timezone. Subukan itong patakbuhin kasama ang arugment: HK timezone",
-        "fr-CA": "Écrivez une fonction nodejs qui peut me renvoyer n'importe quel moment d'un fuseau horaire différent pour moi maintenant, renvoyez la valeur. Assurez-vous que la fonction a un argument qui est le fuseau horaire. Testez-le avec l'argument : fuseau horaire HK",
-        "fr-FR": "Écrivez une fonction nodejs qui peut me renvoyer n'importe quel moment d'un fuseau horaire différent pour moi maintenant, renvoyez la valeur. Assurez-vous que la fonction a un argument qui est le fuseau horaire. Testez-le avec l'argument : fuseau horaire HK",
-        "hi-IN": "मेरे लिए एक नोडज्स फ़ंक्शन लिखें जो मुझे अब किसी भी समय क्षेत्र का समय दे सकता है, मूल्य वापस दें। सुनिश्चित करें कि फ़ंक्शन में एक ऐरगमेंट है जो समय क्षेत्र है। इसे एरगमेंट के साथ टेस्ट रन करें: HK समय क्षेत्र",
-        "hr-HR": "Napišite nodejs funkciju koja mi može vratiti bilo koje vrijeme različite vremenske zone za mene sada, vratiti vrijednost. Pazite da funkcija ima argument koji je vremenska zona. Testirajte ga zajedno s argumentom: HK vremenska zona",
-        "id-ID": "Tulis fungsi nodejs yang dapat mengembalikan waktu zona waktu yang berbeda untuk saya sekarang, kembalikan nilai. Pastikan fungsi memiliki argumen yang merupakan zona waktu. Uji jalankan bersama dengan argumen: zona waktu HK",
-        "it-IT": "Scrivi una funzione nodejs che può restituirmi ora qualsiasi fuso orario diverso per me ora, restituisci il valore. Assicurati che la funzione abbia un argomento che sia il fuso orario. Provalo insieme all'argomento: fuso orario HK",
-        "ms-MY": "Tulis fungsi nodejs yang boleh mengembalikan masa zon masa yang berbeza untuk saya sekarang, kembalikan nilai. Pastikan fungsi mempunyai arugment yang merupakan zon masa. Uji jalankan bersama dengan arugment: zon masa HK",
-        "nl-NL": "Schrijf een nodejs-functie die nu elk tijdstip van een andere tijdzone voor mij kan retourneren, retourneer de waarde. Zorg ervoor dat de functie een argument heeft dat de tijdzone is. Test het samen met het argument: HK-tijdzone",
-        "pl-PL": "Napisz funkcję nodejs, która może zwrócić mi teraz dowolny czas z innej strefy czasowej, zwróć wartość. Upewnij się, że funkcja ma argument, który jest strefą czasową. Uruchom test razem z argumentem: strefa czasowa HK",
-        "pt-BR": "Escreva uma função nodejs que pode me retornar qualquer hora de um fuso horário diferente para mim agora, retorne o valor. Certifique-se de que a função tenha um argumento que seja o fuso horário. Teste-o junto com o argumento: fuso horário HK",
-        "pt-PT": "Escreva uma função nodejs que pode me retornar qualquer hora de um fuso horário diferente para mim agora, retorne o valor. Certifique-se de que a função tenha um argumento que seja o fuso horário. Teste-o junto com o argumento: fuso horário HK",
-        "ro-RO": "Scrieți o funcție nodejs care poate returna orice oră dintr-o altă fus orar pentru mine acum, returnați valoarea. Asigurați-vă că funcția are un argument care este fusul orar. Testați-l împreună cu argumentul: fus orar HK",
-        "sk-SK": "Napíšte funkciu nodejs, ktorá mi teraz môže vrátiť akýkoľvek čas z iného časového pásma, vrátiť hodnotu. Uistite sa, že funkcia má argument, ktorý je časové pásmo. Spustite test spolu s argumentom: HK časové pásmo",
-        "sv-SE": "Skriv en nodejs-funktion som kan returnera vilken tid som helst från en annan tidszon för mig nu, returnera värdet. Se till att funktionen har ett argument som är tidszonen. Testkör det tillsammans med argumentet: HK tidszon",
-        "ta-IN": "எனக்கு இப்போது வெற்றிகரமாக எந்த நேரமும் எனக்கு வேறு நேர மண்டலிலிருந்து திரும்பலாம் என்று ஒரு நோட்ஜ்ஸ் செயல்பாடு எழுதுங்கள், மதிப்பை திரும்பப் பதிவு செய்யலாம். செயல்பாடுக்கு ஒரு உத்தரவாதாரம் உள்ளது என்று உறுதிசெய்க. சோதனை இதனுடன் ஒருங்கிணைந்து இயக்குங்கள்: HK நேர மண்டலம்",
-        "tr-TR": "Şu anda benim için farklı bir zaman diliminden herhangi bir zamanı döndürebilecek bir nodejs işlevi yazın, değeri döndürün. İşlevin zaman dilimi olan bir argümanı olduğundan emin olun. Argümanla birlikte test çalıştırın: HK zaman dilimi",
-        "uk-UA": "Напишіть функцію nodejs, яка може повернути мені будь-який час з іншого часового поясу зараз, повернути значення. Переконайтеся, що функція має аргумент, який є часовим поясом. Тестуйте його разом з аргументом: часовий пояс HK"
+    "templateMsgDetail2": {
+        "en-US": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : TW timezone",
+        "en-AU": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : TW timezone",
+        "en-CA": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : TW timezone",
+        "en-GB": "Write a nodejs function that can return the any time of different timezone for me now, return the value. Make sure the function has a arugment which is the timezone. Test run it along with arugment : TW timezone",
+        "es-ES": "Escribe una función de nodejs que pueda devolverme la hora de cualquier zona horaria diferente para mí ahora, devuelve el valor. Asegúrate de que la función tenga un argumento que sea la zona horaria. Ejecútalo junto con el argumento: zona horaria de TW",
+        "es-MX": "Escribe una función de nodejs que pueda devolverme la hora de cualquier zona horaria diferente para mí ahora, devuelve el valor. Asegúrate de que la función tenga un argumento que sea la zona horaria. Ejecútalo junto con el argumento: zona horaria de TW",
+        "zh-HK": "為我寫一個 nodejs 函數，現在可以為我返回不同時區的任何時間，返回值。確保函數有一個參數，即時區。與參數一起測試運行：TW 時區",
+        "zh-TW": "為我寫一個 nodejs 函數，現在可以為我返回不同時區的任何時間，返回值。確保函數有一個參數，即時區。與參數一起測試運行：TW 時區",
+        "zh-CN": "为我写一个 nodejs 函数，现在可以为我返回不同时区的任何时间，返回值。确保函数有一个参数，即时区。与参数一起测试运行：TW 时区",
+        "ja-JP": "私のために異なるタイムゾーンの任意の時間を返す nodejs 関数を書いてください。値を返します。関数にはタイムゾーンである引数があることを確認してください。引数と一緒にテスト実行してください：TW タイムゾーン",
+        "ko-KR": "지금 나를 위해 다른 시간대의 어떤 시간이든 반환할 수 있는 nodejs 함수를 작성하십시오. 값을 반환합니다. 함수에는 시간대 인수가 있어야합니다. 인수와 함께 테스트 실행 : TW 시간대",
+        "ar-AE": "اكتب وظيفة nodejs يمكنها إعادة أي وقت من منطقة زمنية مختلفة لي الآن ، وإعادة القيمة. تأكد من أن الوظيفة لديها arugment وهو المنطقة الزمنية. تشغيل الاختبار مع arugment: منطقة زمنية TW",
+        "ar-SA": "اكتب وظيفة nodejs يمكنها إعادة أي وقت من منطقة زمنية مختلفة لي الآن ، وإعادة القيمة. تأكد من أن الوظيفة لديها arugment وهو المنطقة الزمنية. تشغيل الاختبار مع arugment: منطقة زمنية TW",
+        "bg-BG": "Напишете функция на nodejs, която може да ми върне всяко време от различна часова зона сега, върнете стойността. Уверете се, че функцията има аргумент, който е часовата зона. Тествайте го заедно с аргумента: TW часова зона",
+        "cs-CZ": "Napište funkci nodejs, která mi nyní může vrátit jakýkoli čas z různého časového pásma, vraťte hodnotu. Ujistěte se, že funkce má argument, který je časové pásmo. Spusťte test spolu s argumentem: TW časové pásmo",
+        "da-DK": "Skriv en nodejs-funktion, der kan returnere enhver tid fra en anden tidszone for mig nu, returnere værdien. Sørg for, at funktionen har et argument, der er tidszonen. Testkør det sammen med argumentet: TW tidszone",
+        "de-DE": "Schreiben Sie eine nodejs-Funktion, die mir jetzt die beliebige Zeit einer anderen Zeitzone zurückgeben kann, geben Sie den Wert zurück. Stellen Sie sicher, dass die Funktion ein Argument hat, das die Zeitzone ist. Testen Sie es zusammen mit dem Argument: TW-Zeitzone",
+        "el-GR": "Γράψτε μια λειτουργία nodejs που μπορεί να μου επιστρέψει την οποιαδήποτε ώρα μιας διαφορετικής ζώνης τώρα, επιστρέψτε την τιμή. Βεβαιωθείτε ότι η λειτουργία έχει ένα όρισμα που είναι η ζώνη ώρας. Δοκιμάστε το μαζί με το όρισμα: Ζώνη ώρας TW",
+        "fi-FI": "Kirjoita nodejs-funktio, joka voi palauttaa minulle nyt minkä tahansa aikavyöhykkeen ajan, palauta arvo. Varmista, että funktiolla on argumentti, joka on aikavyöhyke. Testaa se yhdessä argumentin kanssa: TW aikavyöhyke",
+        "fil-PH": "Magsulat ng isang nodejs function na maaaring ibalik ang anumang oras ng iba't ibang timezone para sa akin ngayon, ibalik ang halaga. Siguruhing may arugment ang function na ito na ang timezone. Subukan itong patakbuhin kasama ang arugment: TW timezone",
+        "fr-CA": "Écrivez une fonction nodejs qui peut me renvoyer n'importe quel moment d'un fuseau horaire différent pour moi maintenant, renvoyez la valeur. Assurez-vous que la fonction a un argument qui est le fuseau horaire. Testez-le avec l'argument : fuseau horaire TW",
+        "fr-FR": "Écrivez une fonction nodejs qui peut me renvoyer n'importe quel moment d'un fuseau horaire différent pour moi maintenant, renvoyez la valeur. Assurez-vous que la fonction a un argument qui est le fuseau horaire. Testez-le avec l'argument : fuseau horaire TW",
+        "hi-IN": "मेरे लिए एक नोडज्स फ़ंक्शन लिखें जो मुझे अब किसी भी समय क्षेत्र का समय दे सकता है, मूल्य वापस दें। सुनिश्चित करें कि फ़ंक्शन में एक ऐरगमेंट है जो समय क्षेत्र है। इसे एरगमेंट के साथ टेस्ट रन करें: TW समय क्षेत्र",
+        "hr-HR": "Napišite nodejs funkciju koja mi može vratiti bilo koje vrijeme različite vremenske zone za mene sada, vratiti vrijednost. Pazite da funkcija ima argument koji je vremenska zona. Testirajte ga zajedno s argumentom: TW vremenska zona",
+        "id-ID": "Tulis fungsi nodejs yang dapat mengembalikan waktu zona waktu yang berbeda untuk saya sekarang, kembalikan nilai. Pastikan fungsi memiliki argumen yang merupakan zona waktu. Uji jalankan bersama dengan argumen: zona waktu TW",
+        "it-IT": "Scrivi una funzione nodejs che può restituirmi ora qualsiasi fuso orario diverso per me ora, restituisci il valore. Assicurati che la funzione abbia un argomento che sia il fuso orario. Provalo insieme all'argomento: fuso orario TW",
+        "ms-MY": "Tulis fungsi nodejs yang boleh mengembalikan masa zon masa yang berbeza untuk saya sekarang, kembalikan nilai. Pastikan fungsi mempunyai arugment yang merupakan zon masa. Uji jalankan bersama dengan arugment: zon masa TW",
+        "nl-NL": "Schrijf een nodejs-functie die nu elk tijdstip van een andere tijdzone voor mij kan retourneren, retourneer de waarde. Zorg ervoor dat de functie een argument heeft dat de tijdzone is. Test het samen met het argument: TW-tijdzone",
+        "pl-PL": "Napisz funkcję nodejs, która może zwrócić mi teraz dowolny czas z innej strefy czasowej, zwróć wartość. Upewnij się, że funkcja ma argument, który jest strefą czasową. Uruchom test razem z argumentem: strefa czasowa TW",
+        "pt-BR": "Escreva uma função nodejs que pode me retornar qualquer hora de um fuso horário diferente para mim agora, retorne o valor. Certifique-se de que a função tenha um argumento que seja o fuso horário. Teste-o junto com o argumento: fuso horário TW",
+        "pt-PT": "Escreva uma função nodejs que pode me retornar qualquer hora de um fuso horário diferente para mim agora, retorne o valor. Certifique-se de que a função tenha um argumento que seja o fuso horário. Teste-o junto com o argumento: fuso horário TW",
+        "ro-RO": "Scrieți o funcție nodejs care poate returna orice oră dintr-o altă fus orar pentru mine acum, returnați valoarea. Asigurați-vă că funcția are un argument care este fusul orar. Testați-l împreună cu argumentul: fus orar TW",
+        "sk-SK": "Napíšte funkciu nodejs, ktorá mi teraz môže vrátiť akýkoľvek čas z iného časového pásma, vrátiť hodnotu. Uistite sa, že funkcia má argument, ktorý je časové pásmo. Spustite test spolu s argumentom: TW časové pásmo",
+        "sv-SE": "Skriv en nodejs-funktion som kan returnera vilken tid som helst från en annan tidszon för mig nu, returnera värdet. Se till att funktionen har ett argument som är tidszonen. Testkör det tillsammans med argumentet: TW tidszon",
+        "ta-IN": "எனக்கு இப்போது வெற்றிகரமாக எந்த நேரமும் எனக்கு வேறு நேர மண்டலிலிருந்து திரும்பலாம் என்று ஒரு நோட்ஜ்ஸ் செயல்பாடு எழுதுங்கள், மதிப்பை திரும்பப் பதிவு செய்யலாம். செயல்பாடுக்கு ஒரு உத்தரவாதாரம் உள்ளது என்று உறுதிசெய்க. சோதனை இதனுடன் ஒருங்கிணைந்து இயக்குங்கள்: TW நேர மண்டலம்",
+        "tr-TR": "Şu anda benim için farklı bir zaman diliminden herhangi bir zamanı döndürebilecek bir nodejs işlevi yazın, değeri döndürün. İşlevin zaman dilimi olan bir argümanı olduğundan emin olun. Argümanla birlikte test çalıştırın: TW zaman dilimi",
+        "uk-UA": "Напишіть функцію nodejs, яка може повернути мені будь-який час з іншого часового поясу зараз, повернути значення. Переконайтеся, що функція має аргумент, який є часовим поясом. Тестуйте його разом з аргументом: часовий пояс TW"
     },
-    "howToSetupAnthropicAPIKey":{
+    "howToSetupAnthropicAPIKey": {
         "en-US": "How to setup Anthropic API key?",
         "en-AU": "How to setup Anthropic API key?",
         "en-CA": "How to setup Anthropic API key?",
@@ -1442,45 +1442,45 @@
         "uk-UA": "Як налаштувати ключ API Anthropic?"
     },
     "privacyPolicy": {
-      "ar-AE": "سياسة الخصوصية",
-      "ar-SA": "سياسة الخصوصية",
-      "bg-BG": "Политика за поверителност",
-      "cs-CZ": "Zásady ochrany osobních údajů",
-      "da-DK": "Fortrolighedspolitik",
-      "de-DE": "Datenschutzrichtlinie",
-      "el-GR": "Πολιτική Απορρήτου",
-      "en-AU": "Privacy Policy",
-      "en-CA": "Privacy Policy",
-      "en-GB": "Privacy Policy",
-      "en-US": "Privacy Policy",
-      "es-ES": "Política de privacidad",
-      "es-MX": "Política de privacidad",
-      "fi-FI": "Tietosuojakäytäntö",
-      "fil-PH": "Patakaran sa Privacy",
-      "fr-CA": "Politique de confidentialité",
-      "fr-FR": "Politique de confidentialité",
-      "hi-IN": "गोपनीयता नीति",
-      "hr-HR": "Politika privatnosti",
-      "id-ID": "Kebijakan Privasi",
-      "it-IT": "Politica sulla privacy",
-      "ja-JP": "プライバシーポリシー",
-      "ko-KR": "개인정보 처리방침",
-      "ms-MY": "Dasar Privasi",
-      "nl-NL": "Privacybeleid",
-      "pl-PL": "Polityka prywatności",
-      "pt-BR": "Política de Privacidade",
-      "pt-PT": "Política de Privacidade",
-      "ro-RO": "Politica de confidențialitate",
-      "sk-SK": "Zásady ochrany osobných údajov",
-      "sv-SE": "Integritetspolicy",
-      "ta-IN": "தனியுரிமைக் கொள்கை",
-      "tr-TR": "Gizlilik Politikası",
-      "uk-UA": "Політика конфіденційності",
-      "zh-CN": "隐私政策",
-      "zh-HK": "隱私政策",
-      "zh-TW": "隱私政策"
+        "ar-AE": "سياسة الخصوصية",
+        "ar-SA": "سياسة الخصوصية",
+        "bg-BG": "Политика за поверителност",
+        "cs-CZ": "Zásady ochrany osobních údajů",
+        "da-DK": "Fortrolighedspolitik",
+        "de-DE": "Datenschutzrichtlinie",
+        "el-GR": "Πολιτική Απορρήτου",
+        "en-AU": "Privacy Policy",
+        "en-CA": "Privacy Policy",
+        "en-GB": "Privacy Policy",
+        "en-US": "Privacy Policy",
+        "es-ES": "Política de privacidad",
+        "es-MX": "Política de privacidad",
+        "fi-FI": "Tietosuojakäytäntö",
+        "fil-PH": "Patakaran sa Privacy",
+        "fr-CA": "Politique de confidentialité",
+        "fr-FR": "Politique de confidentialité",
+        "hi-IN": "गोपनीयता नीति",
+        "hr-HR": "Politika privatnosti",
+        "id-ID": "Kebijakan Privasi",
+        "it-IT": "Politica sulla privacy",
+        "ja-JP": "プライバシーポリシー",
+        "ko-KR": "개인정보 처리방침",
+        "ms-MY": "Dasar Privasi",
+        "nl-NL": "Privacybeleid",
+        "pl-PL": "Polityka prywatności",
+        "pt-BR": "Política de Privacidade",
+        "pt-PT": "Política de Privacidade",
+        "ro-RO": "Politica de confidențialitate",
+        "sk-SK": "Zásady ochrany osobných údajov",
+        "sv-SE": "Integritetspolicy",
+        "ta-IN": "தனியுரிமைக் கொள்கை",
+        "tr-TR": "Gizlilik Politikası",
+        "uk-UA": "Політика конфіденційності",
+        "zh-CN": "隐私政策",
+        "zh-HK": "隱私政策",
+        "zh-TW": "隱私政策"
     },
-    "slogan":{
+    "slogan": {
         "en-US": "Become an AI programmer with Open Carpenter.",
         "en-AU": "Become an AI programmer with Open Carpenter.",
         "en-CA": "Become an AI programmer with Open Carpenter.",
