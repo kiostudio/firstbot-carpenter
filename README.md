@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# What is this?
 
-## Getting Started
+An AI-powered tool that converts natural language into functional NodeJS or Python code. The code runs in the cloud for instant testing and can be saved for later use.
+
+# Who is this for?
+
+Individuals who possesses no technical background but with AI prompting interest and IT workers.
+
+# Our Hosted Demo
+
+[https://carpenter.firstbot.tech/](https://carpenter.firstbot.tech/)
+
+# Requirement
+
+- Git
+- NodeJS 18.x
+- Python 3.11.x
+- npm package
+  - `@aws-amplify/cli@12.12.2`
+  - `yarn@1.22.22`
+- pypi package `pipenv==2024.0.1` (For building Python AWS Lambda)
+
+- Vercel (Frontend)
+- AWS Amplify (Backend)
+- Streamio (Chat API service)
+
+- Anthropic API Key
+
+# Development and Tinkering (Incomplete)
+
+1. `npm install -g @aws-amplify/cli@12.12.2`
+2. `git clone https://github.com/kiostudio/firstbot-carpenter`
+3. `cd <path_to_firstbot-carpenter>`
+4. `yarn install`
+5. `amplify configure` or follow [AWS Amplify doc here](https://docs.amplify.aws/gen1/react/start/project-setup/prerequisites/)
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Happy Hacking!
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Production Deploy
 
-## Learn More
+# Provided by Firstbot
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This is created by Kios Tech Inc. as a teaser for its AI platform Firstbot. You are welcomed to try it [here](https://www.firstbot.tech).

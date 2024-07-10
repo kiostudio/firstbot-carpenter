@@ -1,0 +1,3 @@
+{
+    "body": "{\r\n  \"dependencies\": \"numpy\",\r\n  \"script\": \"from datetime import datetime\\r\\nimport numpy\\r\\n\\r\\ndef exeFunc(heading, ending):\\r\\n    print('The current time is:')\\r\\n    return f\\\"heading {str(datetime.now())} ending \\\\n{numpy.sum([1, 2, 3, 4, 5])}\\\"\",\r\n  \"run_params\": \"{\\r\\n    \\\"heading\\\": \\\"Beginning shou you\\\",\\r\\n    \\\"ending\\\": \\\"You shou end?\\\"\\r\\n}\"\r\n}"
+}

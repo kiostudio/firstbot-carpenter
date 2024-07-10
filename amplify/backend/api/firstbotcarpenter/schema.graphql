@@ -1,0 +1,25 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Profile @model {
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  data: AWSJSON
+}
+
+type Logging @model{
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  profileId: ID! @index(name: "getLoggingByProfileId", sortKeyFields:["createdAt"], queryField: "getLoggingByProfileId")
+  type: String
+  data: AWSJSON
+}
+
+type Query {
+  firstbotStreamioAction(params: String): String @function(name: "firstbotStreamioAction-${env}")
+  firstbotAnthropicRuntime(params: String): String @function(name: "firstbotAnthropicRuntime-${env}")
+  firstbotTriggerRuntime(params: String): String @function(name: "firstbotTriggerRuntime-${env}")
+}

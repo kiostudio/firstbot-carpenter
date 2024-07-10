@@ -1,0 +1,21 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "firstbotcarpenter": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "firstbotPythonRuntime",
+      "environmentVariableName": "FIRSTBOT_PYTHON_RUNTIME"
+    },
+    {
+      "cloudFormationParameterName": "firstbotNodejsRuntime",
+      "environmentVariableName": "FIRSTBOT_NODEJS_RUNTIME"
+    }
+  ]
+}
