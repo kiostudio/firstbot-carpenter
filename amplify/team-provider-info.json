@@ -1,0 +1,65 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-firstbotcarpenter-dev-112641-authRole",
+      "UnauthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-dev-112641-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-dev-112641-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+      "UnauthRoleName": "amplify-firstbotcarpenter-dev-112641-unauthRole",
+      "StackName": "amplify-firstbotcarpenter-dev-112641",
+      "StackId": "arn:aws:cloudformation:us-east-1:441658902828:stack/amplify-firstbotcarpenter-dev-112641/9263de30-3b47-11ef-a788-12a471e35253",
+      "AmplifyAppId": "d2rizq9ecqhouq"
+    },
+    "categories": {
+      "function": {
+        "firstbotAnthropicRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotAnthropicRuntime-6b36696c6a7764496548-build.zip",
+          "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://iqex76tnu3nvhjuxjb2cx2azxq0fppxo.lambda-url.us-east-1.on.aws/"
+        },
+        "firstbotStreamioAction": {
+          "secretsPathAmplifyAppId": "d2rizq9ecqhouq",
+          "streamIoApiKey": "zy37g37xbvd4",
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioAction-436b435066475a4d3555-build.zip"
+        },
+        "firstbotStreamioWebhook": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotStreamioWebhook-39786d31722f43347749-build.zip"
+        },
+        "firstbotNodeJsRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotNodeJsRuntime-6667534c5452376c4578-build.zip"
+        },
+        "firstbotPythonRuntime": {
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotPythonRuntime-4f373752717874416a4a-build.zip"
+        },
+        "firstbotTriggerRuntime": {
+          "firstbotNodejsRuntime": "https://ttrcbhtn5sspvps6bpysfezove0vtmim.lambda-url.us-east-1.on.aws/",
+          "firstbotPythonRuntime": "https://iqex76tnu3nvhjuxjb2cx2azxq0fppxo.lambda-url.us-east-1.on.aws/",
+          "deploymentBucketName": "amplify-firstbotcarpenter-dev-112641-deployment",
+          "s3Key": "amplify-builds/firstbotTriggerRuntime-4835686545782f38304b-build.zip"
+        }
+      },
+      "api": {
+        "firstbotcarpenter": {}
+      }
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-firstbotcarpenter-prod-200455-authRole",
+      "UnauthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-prod-200455-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::441658902828:role/amplify-firstbotcarpenter-prod-200455-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-firstbotcarpenter-prod-200455-deployment",
+      "UnauthRoleName": "amplify-firstbotcarpenter-prod-200455-unauthRole",
+      "StackName": "amplify-firstbotcarpenter-prod-200455",
+      "StackId": "arn:aws:cloudformation:us-east-1:441658902828:stack/amplify-firstbotcarpenter-prod-200455/a241a060-3eb4-11ef-b966-0e74d718cccb",
+      "AmplifyAppId": "d2rizq9ecqhouq"
+    }
+  }
+}
