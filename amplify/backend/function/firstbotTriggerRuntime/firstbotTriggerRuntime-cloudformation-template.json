@@ -28,10 +28,10 @@
       "Type": "String",
       "Default": "apifirstbotcarpenterGraphQLAPIKeyOutput"
     },
-    "firstbotNodejsRuntime": {
+    "firstbotPythonRuntime": {
       "Type": "String"
     },
-    "firstbotPythonRuntime": {
+    "firstbotNodejsRuntime": {
       "Type": "String"
     }
   },
@@ -97,11 +97,11 @@
             "API_FIRSTBOTCARPENTER_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apifirstbotcarpenterGraphQLAPIKeyOutput"
             },
-            "FIRSTBOT_NODEJS_RUNTIME": {
-              "Ref": "firstbotNodejsRuntime"
-            },
             "FIRSTBOT_PYTHON_RUNTIME": {
               "Ref": "firstbotPythonRuntime"
+            },
+            "FIRSTBOT_NODEJS_RUNTIME": {
+              "Ref": "firstbotNodejsRuntime"
             }
           }
         },
