@@ -2,6 +2,10 @@
 
 An AI-powered tool that converts natural language into functional NodeJS or Python code. The code runs in the cloud for instant testing and can be saved for later use.
 
+A short demo video (< 5MB size):
+
+https://github.com/user-attachments/assets/e9f278a6-f786-444a-91e2-9117ea3f9d1c
+
 # Who is this for?
 
 Individuals who possesses no technical background but with AI prompting interest and IT workers.
